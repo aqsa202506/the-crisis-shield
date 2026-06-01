@@ -3,436 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Crisis Shield | Global Intelligence Hub</title>
+    <title>The Crisis Shield | AI Portal</title>
     
-    <!-- Premium 'Plus Jakarta Sans' Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <!-- Premium Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-global: #060913;
-            --surface: #0e1326;
-            --surface-card: #151c33;
-            --accent-gold: #e2b353;
-            --accent-blue: #3b82f6;
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --status-red: #ef4444;
-            --status-green: #10b981;
+            --bg-global: #050811;
+            --surface: #0b1122;
+            --surface-card: #121a36;
+            --gold: #e2b353;
+            --blue: #3b82f6;
+            --text-main: #ffffff;
+            --text-muted: #7ed4ff;
+            --red: #ef4444;
+            --green: #10b981;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-global); color: var(--text-main); min-height: 100vh; padding: 20px; }
 
-        body {
-            background-color: var(--bg-global);
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: 20px 10px;
-        }
-
-        .wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Language Utility Bar */
-        .lang-bar {
+        /* Top Navigation Bar */
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            padding: 15px 25px;
             background: var(--surface);
-            padding: 10px 20px;
-            border-radius: 30px;
-            margin-bottom: 25px;
+            border-radius: 50px;
             border: 1px solid rgba(255,255,255,0.05);
         }
-        .lang-bar span { font-size: 0.85rem; color: var(--text-secondary); }
-        .lang-select {
-            background: transparent;
-            color: var(--accent-gold);
-            border: none;
-            font-weight: 600;
-            outline: none;
-            cursor: pointer;
-        }
+        .menu-btn, .lang-select { background: transparent; border: none; color: var(--gold); font-size: 1.2rem; cursor: pointer; font-weight: 600; }
+        .lang-select { font-size: 0.9rem; outline: none; }
 
-        /* Clean Profile Header (Inspired by Premium Account Dashboards) */
-        .profile-header {
+        /* Search & AI Section (Center of Attention) */
+        .search-container {
             text-align: center;
-            background: linear-gradient(180deg, var(--surface) 0%, var(--bg-global) 100%);
-            padding: 40px 20px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 30px;
+            max-width: 600px;
+            margin: 60px auto 40px auto;
         }
-        .profile-avatar {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-blue));
-            border-radius: 50%;
-            margin: 0 auto 15px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: #000;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-        }
-        .profile-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
-        .profile-header p { color: var(--text-secondary); font-size: 1rem; max-width: 500px; margin: 0 auto; font-weight: 400; }
-
-        /* Dashboard Sections */
-        .section-title {
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--accent-gold);
-            margin: 30px 0 15px 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Live Conflict Tracker Grid */
-        .live-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        @media(min-width: 600px) { .live-grid { grid-template-columns: 1fr 1fr; } }
-
-        .live-card {
-            background: var(--surface);
-            border: 1px solid rgba(255,255,255,0.03);
-            padding: 20px;
-            border-radius: 16px;
+        .search-container h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; color: #fff; }
+        .search-box-wrapper {
             position: relative;
-        }
-        .live-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--status-red);
-            padding: 4px 10px;
-            border-radius: 20px;
         }
-        .live-badge .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--status-red);
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.4; }
-            100% { transform: scale(0.9); opacity: 1; }
-        }
-
-        .live-card h3 { font-size: 1.1rem; margin-bottom: 10px; padding-right: 80px; }
-        .live-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
-
-        /* Middle Class Solution Cards */
-        .solution-list { display: flex; flex-direction: column; gap: 15px; }
-        .solution-card {
+        .search-box-wrapper i { position: absolute; left: 20px; color: var(--blue); font-size: 1.2rem; }
+        .ai-input {
+            width: 100%;
+            padding: 18px 20px 18px 55px;
             background: var(--surface);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: all 0.3s ease;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.1);
+            transition: all 0.3s;
         }
-        .solution-card:hover { border-color: rgba(59, 130, 246, 0.2); transform: translateY(-2px); }
-        .solution-card h3 { font-size: 1.2rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-        .solution-card h3 i { color: var(--accent-blue); }
-        
-        .box-split {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        @media(min-width: 600px) { .box-split { grid-template-columns: 1fr 1fr; } }
-        
-        .sub-box { background: rgba(0,0,0,0.15); padding: 15px; border-radius: 10px; font-size: 0.9rem; }
-        .sub-box span { display: block; font-weight: 700; margin-bottom: 5px; font-size: 0.8rem; text-transform: uppercase; }
-        .sub-box.risk span { color: var(--status-red); }
-        .sub-box.action span { color: var(--status-green); }
+        .ai-input:focus { border-color: var(--gold); box-shadow: 0 0 30px rgba(242, 169, 0, 0.2); }
 
-        /* Clean Minimal Action Button */
-        .action-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: var(--surface-card);
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
+        /* Hidden Sidebar Menu */
+        .sidebar {
+            position: fixed;
+            top: 0; left: -300px;
+            width: 300px; height: 100%;
+            background: var(--surface);
+            box-shadow: 10px 0 30px rgba(0,0,0,0.7);
+            z-index: 100;
+            padding: 30px;
+            transition: 0.3s ease;
+        }
+        .sidebar.active { left: 0; }
+        .sidebar-close { text-align: right; margin-bottom: 30px; cursor: pointer; color: var(--red); }
+        .menu-links a { display: block; color: #fff; text-decoration: none; padding: 15px 0; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .menu-links a:hover { color: var(--gold); }
+
+        /* Location Status Badge */
+        .loc-badge {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--green);
+            margin-bottom: 30px;
             font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.2s;
         }
-        .action-link:hover { background: var(--accent-blue); border-color: var(--accent-blue); }
 
-        /* Checklist */
-        .protocol-box { background: var(--surface); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.03); }
-        .check-group { display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: rgba(0,0,0,0.15); border-radius: 12px; margin-bottom: 12px; }
-        .check-group input { width: 20px; height: 20px; accent-color: var(--accent-gold); margin-top: 2px; cursor: pointer; }
-        .check-group label { font-size: 0.95rem; color: var(--text-primary); cursor: pointer; line-height: 1.4; }
+        /* Results Area (Cards hidden or filtered dynamically) */
+        .results-container { max-width: 700px; margin: 0 auto; }
+        .info-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.02);
+            display: block; /* Shown by default, hidden via search */
+        }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .card-header h2 { font-size: 1.3rem; color: var(--gold); }
+        .live-tag { color: var(--red); font-size: 0.8rem; text-transform: uppercase; font-weight: 700; }
+        
+        .box-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 15px; }
+        @media(min-width: 600px) { .box-grid { grid-template-columns: 1fr 1fr; } }
+        .pane { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; font-size: 0.9rem; }
+        .pane strong { display: block; color: var(--text-muted); margin-bottom: 5px; font-size: 0.75rem; text-transform: uppercase; }
 
-        footer { text-align: center; padding: 40px 0; color: var(--text-secondary); font-size: 0.8rem; }
+        .btn-action {
+            display: block; text-align: center; background: var(--surface-card); color: #fff;
+            padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .btn-action:hover { background: var(--blue); }
+
+        /* RTL Direction for Arabic */
+        .rtl { direction: rtl; text-align: right; }
+        .rtl .search-box-wrapper i { right: 20px; left: auto; }
+        .rtl .ai-input { padding: 18px 55px 18px 20px; }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
+    <!-- Sidebar Navigation Menu -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-close" onclick="toggleMenu()"><i class="fa-solid fa-xmark fa-xl"></i></div>
+        <div class="menu-links">
+            <a href="#" onclick="toggleMenu()"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="https://www.google.com/search?q=russia+ukraine+war+news" target="_blank"><i class="fa-solid fa-shield-halved"></i> Eastern Europe Analysis</a>
+            <a href="https://www.google.com/search?q=strait+of+hormuz+news" target="_blank"><i class="fa-solid fa-oil-well"></i> Middle East Conflict</a>
+            <a href="https://www.google.com/search?q=sovereign+gold+bonds" target="_blank"><i class="fa-solid fa-coins"></i> Wealth Safe Havens</a>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <button class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i> Menu</button>
+        <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="hi">Hindi (हिंदी)</option>
+            <option value="ar">Arabic (العربية)</option>
+        </select>
+    </div>
+
+    <div class="search-container">
+        <h1 id="txt-main-title">The Crisis Shield</h1>
+        <div class="loc-badge" id="txt-loc"><i class="fa-solid fa-location-crosshairs"></i> Synchronizing local radar coordinates...</div>
+        <div class="search-box-wrapper">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <input type="text" class="ai-input" id="searchBar" onkeyup="filterCrisis()" placeholder="Ask AI or search specific conflict/asset...">
+        </div>
+    </div>
+
+    <!-- Hidden list by default structure, searchable -->
+    <div class="results-container">
         
-        <!-- Language Top Bar -->
-        <div class="lang-bar">
-            <span id="lang-status"><i class="fa-solid fa-earth-americas"></i> Detecting location language...</span>
-            <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
-                <option value="en">English</option>
-                <option value="hi">Hindi (हिंदी)</option>
-                <option value="es">Español</option>
-            </select>
+        <div class="info-card" data-keyword="russia ukraine europe war inflation">
+            <div class="card-header">
+                <h2 id="card1-title">Eastern Europe Sector</h2>
+                <span class="live-tag">● Live</span>
+            </div>
+            <div class="box-grid">
+                <div class="pane"><strong id="lbl-threat1">Threat Analysis</strong><p id="card1-threat">Russia-Ukraine tension impacting grain supply and household grocery indexes.</p></div>
+                <div class="pane"><strong id="lbl-shield1">Shield Protocol</strong><p id="card1-shield">Track international logistics hubs and optimize family backup provisions.</p></div>
+            </div>
+            <a href="https://www.google.com/search?q=russia+ukraine+war+news" target="_blank" class="btn-action" id="btn-card1">Explore Radar Tools</a>
         </div>
 
-        <!-- Dashboard Account-Style Profile Header -->
-        <header class="profile-header">
-            <div class="profile-avatar"><i class="fa-solid fa-user-shield"></i></div>
-            <h1 id="txt-title">The Crisis Shield</h1>
-            <p id="txt-subtitle">Your strategic protection radar. Tailored to safeguard middle-class families from global economic turbulence and conflicts.</p>
-        </header>
-
-        <!-- LIVE TRACKER SECTION -->
-        <div class="section-title"><i class="fa-solid fa-satellite"></i> <span id="lbl-live">Live Threat Monitor</span></div>
-        <div class="live-grid">
-            <div class="live-card">
-                <div class="live-badge"><div class="pulse-dot"></div><span>Live</span></div>
-                <h3 id="txt-c1-title">Eastern Europe Sector</h3>
-                <p id="txt-c1-desc">Russia-Ukraine tension analysis: Evaluating supply chain logs, grain exports, and inflation impact on households.</p>
+        <div class="info-card" data-keyword="middle east oil hormuz petrol fuel">
+            <div class="card-header">
+                <h2 id="card2-title">Middle East Corridors</h2>
+                <span class="live-tag">● Live</span>
             </div>
-            <div class="live-card">
-                <div class="live-badge"><div class="pulse-dot"></div><span>Live</span></div>
-                <h3 id="txt-c2-title">Middle East Corridors</h3>
-                <p id="txt-c2-desc">Strait of Hormuz transit metrics: Tracking real-time crude pricing alerts to protect your domestic transport budget.</p>
+            <div class="box-grid">
+                <div class="pane"><strong id="lbl-threat2">Threat Analysis</strong><p id="card2-threat">Strait of Hormuz blockades triggering abrupt global crude price escalations.</p></div>
+                <div class="pane"><strong id="lbl-shield2">Shield Protocol</strong><p id="card2-shield">Transition domestic dependencies toward local renewable alternatives.</p></div>
             </div>
+            <a href="https://www.google.com/search?q=strait+of+hormuz+news" target="_blank" class="btn-action" id="btn-card2">Explore Radar Tools</a>
         </div>
-
-        <!-- MIDDLE CLASS ESSENTIAL MATRICES -->
-        <div class="section-title"><i class="fa-solid fa-box-tissue"></i> <span id="lbl-solutions">Middle-Class Protection Matrix</span></div>
-        <div class="solution-list">
-            
-            <!-- Card 1: Job & Expense -->
-            <div class="solution-card">
-                <h3 id="txt-m1-title"><i class="fa-solid fa-house-laptop"></i> Job Security & Living Cost</h3>
-                <div class="box-split">
-                    <div class="sub-box risk">
-                        <span id="lbl-risk1">The Pressure</span>
-                        <p id="txt-m1-risk">Tech freezes and supply delays can cause sudden local price hikes in fuel and groceries.</p>
-                    </div>
-                    <div class="sub-box action">
-                        <span id="lbl-action1">The Shield</span>
-                        <p id="txt-m1-action">Identify high-demand local sectors. Build an inflation-proof family expense tracker.</p>
-                    </div>
-                </div>
-                <a href="https://www.google.com/search?q=inflation+protection+strategies+for+middle+class" target="_blank" class="action-link" id="btn-m1">
-                    Access Shield Tools <i class="fa-solid fa-chevron-right"></i>
-                </a>
-            </div>
-
-            <!-- Card 2: Savings -->
-            <div class="solution-card">
-                <h3 id="txt-m2-title"><i class="fa-solid fa-piggy-bank"></i> Hard-Earned Savings Protection</h3>
-                <div class="box-split">
-                    <div class="sub-box risk">
-                        <span id="lbl-risk2">The Pressure</span>
-                        <p id="txt-m2-risk">Bank server slow-downs or currency value drops during sudden international emergencies.</p>
-                    </div>
-                    <div class="sub-box action">
-                        <span id="lbl-action2">The Shield</span>
-                        <p id="txt-m2-action">Diversify into Sovereign Gold or fractional safe assets. Keep accessible cash liquid.</p>
-                    </div>
-                </div>
-                <a href="https://www.google.com/search?q=how+to+buy+sovereign+gold+bonds" target="_blank" class="action-link" id="btn-m2">
-                    View Safe Asset Guides <i class="fa-solid fa-chevron-right"></i>
-                </a>
-            </div>
-
-        </div>
-
-        <!-- REASSURING CHECKLIST -->
-        <div class="section-title"><i class="fa-solid fa-circle-check"></i> <span id="lbl-checklist">Family Readiness Protocol</span></div>
-        <div class="protocol-box">
-            <div class="check-group">
-                <input type="checkbox" id="p1">
-                <label for="p1" id="txt-p1">Emergency liquidity: Safeguarded equivalent to 1 month of utility expenses locally.</label>
-            </div>
-            <div class="check-group">
-                <input type="checkbox" id="p2">
-                <label for="p2" id="txt-p2">Digital insurance: Essential identification and health cards stored securely offline.</label>
-            </div>
-            <div class="check-group">
-                <input type="checkbox" id="p3">
-                <label for="p3" id="txt-p3">Asset hedging: Allocated defensive buffer via Gold or trusted index funds.</label>
-            </div>
-        </div>
-
-        <footer>
-            <p>&copy; 2026 The Crisis Shield | Modern Household Security System</p>
-        </footer>
 
     </div>
 
-    <!-- AUTO DETECT & MULTI LANGUAGE ENGINE -->
     <script>
         const dictionary = {
             en: {
                 title: "The Crisis Shield",
-                subtitle: "Your strategic protection radar. Tailored to safeguard middle-class families from global economic turbulence and conflicts.",
-                lblLive: "Live Threat Monitor",
-                c1Title: "Eastern Europe Sector",
-                c1Desc: "Russia-Ukraine tension analysis: Evaluating supply chain logs, grain exports, and inflation impact on households.",
-                c2Title: "Middle East Corridors",
-                c2Desc: "Strait of Hormuz transit metrics: Tracking real-time crude pricing alerts to protect your domestic transport budget.",
-                lblSolutions: "Middle-Class Protection Matrix",
-                m1Title: "Job Security & Living Cost",
-                risk1: "The Pressure",
-                m1Risk: "Tech freezes and supply delays can cause sudden local price hikes in fuel and groceries.",
-                action1: "The Shield",
-                m1Action: "Identify high-demand local sectors. Build an inflation-proof family expense tracker.",
-                btn1: "Access Shield Tools",
-                m2Title: "Hard-Earned Savings Protection",
-                risk2: "The Pressure",
-                m2Risk: "Bank server slow-downs or currency value drops during sudden international emergencies.",
-                action2: "The Shield",
-                m2Action: "Diversify into Sovereign Gold or fractional safe assets. Keep accessible cash liquid.",
-                btn2: "View Safe Asset Guides",
-                lblChecklist: "Family Readiness Protocol",
-                p1: "Emergency liquidity: Safeguarded equivalent to 1 month of utility expenses locally.",
-                p2: "Digital insurance: Essential identification and health cards stored securely offline.",
-                p3: "Asset hedging: Allocated defensive buffer via Gold or trusted index funds."
+                c1t: "Eastern Europe Sector", c1th: "Russia-Ukraine tension impacting grain supply and household grocery indexes.", c1sh: "Track international logistics hubs and optimize family backup provisions.",
+                c2t: "Middle East Corridors", c2th: "Strait of Hormuz blockades triggering abrupt global crude price escalations.", c2sh: "Transition domestic dependencies toward local renewable alternatives.",
+                t1: "Threat Analysis", s1: "Shield Protocol", btn: "Explore Radar Tools",
+                ph: "Ask AI or search specific conflict/asset..."
             },
             hi: {
                 title: "द क्राइसिस शील्ड",
-                subtitle: "आपका रणनीतिक सुरक्षा रडार। मध्यमवर्गीय परिवारों को वैश्विक आर्थिक उथल-पुथल और युद्ध के खतरों से सुरक्षित रखने के लिए विशेष रूप से निर्मित।",
-                lblLive: "लाइव खतरा मॉनिटर",
-                c1Title: "पूर्वी यूरोप क्षेत्र",
-                c1Desc: "रूस-यूक्रेन तनाव विश्लेषण: सप्लाई चेन, अनाज निर्यात और आम घरों पर पड़ने वाले महंगाई के असर की ट्रैकिंग।",
-                c2Title: "मिडल ईस्ट कॉरिडोर",
-                c2Desc: "स्ट्रेट ऑफ होर्मुज मार्ग: पेट्रोल-डीजल और ट्रांसपोर्ट बजट को सुरक्षित रखने के लिए कच्चे तेल की कीमतों का लाइव अलर्ट।",
-                lblSolutions: "मिडिल-क्लास सुरक्षा मैट्रिक्स",
-                m1Title: "जॉब सुरक्षा और घरेलू खर्च",
-                risk1: "संकट का असर",
-                m1Risk: "वैश्विक तनाव के कारण आपके शहर में अचानक पेट्रोल, डीजल और राशन के दाम बढ़ सकते हैं।",
-                action1: "बचाव का रास्ता",
-                m1Action: "सुरक्षित लोकल सेक्टर्स की पहचान करें और एक महंगाई-मुक्त फैमिली बजट प्लानर तैयार करें।",
-                btn1: "सुरक्षा टूल्स देखें",
-                m2Title: "मेहनत की कमाई की सुरक्षा",
-                risk2: "संकट का असर",
-                m2Risk: "अंतरराष्ट्रीय आपातकाल के समय बैंक सर्वर धीमे होना या करेंसी (रुपये) की वैल्यू कम हो जाना।",
-                action2: "बचाव का रास्ता",
-                m2Action: "अपनी सेविंग्स का कुछ हिस्सा सॉवरेन गोल्ड (सोने) में रखें और घर पर कुछ कैश लिक्विड मेन्टेन करें।",
-                btn2: "सुरक्षित एसेट गाइड",
-                lblChecklist: "पारिवारिक सुरक्षा प्रोटोकॉल",
-                p1: "आपातकालीन फंड: कम से कम 1 महीने के घर के खर्च का कैश सुरक्षित स्थान पर रखा है।",
-                p2: "डिजिटल बैकअप: जरूरी पहचान पत्र और मेडिकल पेपर्स की ऑफलाइन कॉपी फोन में सेव है।",
-                p3: "गोल्ड हेजिंग: अपनी कुल जमा पूंजी का 10-15% हिस्सा गोल्ड या सुरक्षित फंड्स में लगाया है।"
+                c1t: "पूर्वी यूरोप क्षेत्र (रूस-यूक्रेन)", c1th: "रूस-यूक्रेन युद्ध के कारण सप्लाई चेन और घरेलू राशन के दामों पर गहरा असर।", c1sh: "अंतरराष्ट्रीय लॉजिस्टिक्स पर नज़र रखें और आपातकालीन राशन स्टॉक मैनेज करें।",
+                c2t: "मिडल ईस्ट कॉरिडोर", c2th: "होर्मुज जलडमरूमध्य मार्ग पर रुकावट से कच्चे तेल और ट्रांसपोर्ट खर्च में भारी बढ़ोतरी।", c2sh: "घरेलू खर्चों को रिन्यूएबल (सोलर/इलेक्ट्रिक) विकल्पों की तरफ शिफ्ट करें।",
+                t1: "खतरे का विश्लेषण", s1: "बचाव प्रोटोकॉल", btn: "सुरक्षा टूल्स खोलें",
+                ph: "AI से पूछें या किसी देश/संकट को सर्च करें..."
             },
-            es: {
-                title: "The Crisis Shield",
-                subtitle: "Su radar de protección estratégica. Diseñado para proteger a las familias de clase media de las turbulencias y conflictos económicos globales.",
-                lblLive: "Monitor de Amenazas en Vivo",
-                c1Title: "Sector de Europa del Este",
-                c1Desc: "Análisis de la tensión Rusia-Ucrania: Evaluando la cadena de suministro y el impacto de la inflación en los hogares.",
-                c2Title: "Corredores de Medio Oriente",
-                c2Desc: "Métricas de tránsito del Estrecho de Ormuz: Seguimiento de alertas de precios del crudo para proteger su presupuesto.",
-                lblSolutions: "Matriz de Protección de Clase Media",
-                m1Title: "Seguridad Laboral y Costo de Vida",
-                risk1: "La Presión",
-                m1Risk: "Los bloqueos tecnológicos pueden causar aumentos repentinos en los precios locales del combustible y alimentos.",
-                action1: "El Escudo",
-                m1Action: "Identifique sectores locales de alta demanda. Cree un registro de gastos familiares libre de inflación.",
-                btn1: "Acceder a Herramientas",
-                m2Title: "Protección de Ahorros",
-                risk2: "La Presión",
-                m2Risk: "Ralentización de servidores bancarios o caídas del valor de la moneda durante emergencias internacionales.",
-                action2: "El Escudo",
-                m2Action: "Diversifique en oro soberano o activos seguros fraccionados. Mantenga efectivo líquido accesible.",
-                btn2: "Ver Guías de Activos",
-                lblChecklist: "Protocolo de Preparación Familiar",
-                p1: "Liquidez de emergencia: Al menos 1 mes de gastos corrientes resguardados localmente.",
-                p2: "Seguro digital: Copias de identificaciones oficiales guardadas de forma segura sin conexión.",
-                p3: "Cobertura de activos: Margen defensivo asignado a través de oro o fondos indexados confiables."
+            ar: {
+                title: "درع الأزمات",
+                c1t: "قطاع أوروبا الشرقية", c1th: "التوترات الروسية الأوكرانية تؤثر على إمدادات الحبوب ومؤشرات البقالة المنزلية.", c1sh: "تتبع العقد اللوجستية الدولية وتحسين المخصصات الاحتياطية للعائلة.",
+                c2t: "ممرات الشرق الأوسط", c2th: "حصار مضيق هرمز يؤدي إلى تصاعد مفاجئ في أسعار النفط الخام العالمية.", c2sh: "تحويل الاعتمادات المحلية نحو البدائل المتجددة المتاحة.",
+                t1: "تحليل التهديد", s1: "بروتوكول الدرع", btn: "استكشاف أدوات الرادار",
+                ph: "اسأل الذكاء الاصطناعي أو ابحث عن أزمة معينة..."
             }
         };
+
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        function filterCrisis() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let cards = document.getElementsByClassName('info-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let keywords = cards[i].getAttribute('data-keyword');
+                if (keywords.includes(input) || input === "") {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.style.display = "none";
+                }
+            }
+        }
 
         function changeLanguage(lang) {
             const data = dictionary[lang] || dictionary['en'];
             
-            document.getElementById('txt-title').innerText = data.title;
-            document.getElementById('txt-subtitle').innerText = data.subtitle;
-            document.getElementById('lbl-live').innerText = data.lblLive;
-            document.getElementById('txt-c1-title').innerText = data.c1Title;
-            document.getElementById('txt-c1-desc').innerText = data.c1Desc;
-            document.getElementById('txt-c2-title').innerText = data.c2Title;
-            document.getElementById('txt-c2-desc').innerText = data.c2Desc;
-            document.getElementById('lbl-solutions').innerText = data.lblSolutions;
-            
-            document.getElementById('txt-m1-title').innerHTML = `<i class="fa-solid fa-house-laptop"></i> ${data.m1Title}`;
-            document.getElementById('lbl-risk1').innerText = data.risk1;
-            document.getElementById('txt-m1-risk').innerText = data.m1Risk;
-            document.getElementById('lbl-action1').innerText = data.action1;
-            document.getElementById('txt-m1-action').innerText = data.m1Action;
-            document.getElementById('btn-m1').innerHTML = `${data.btn1} <i class="fa-solid fa-chevron-right"></i>`;
-            
-            document.getElementById('txt-m2-title').innerHTML = `<i class="fa-solid fa-piggy-bank"></i> ${data.m2Title}`;
-            document.getElementById('lbl-risk2').innerText = data.risk2;
-            document.getElementById('txt-m2-risk').innerText = data.m2Risk;
-            document.getElementById('lbl-action2').innerText = data.action2;
-            document.getElementById('txt-m2-action').innerText = data.m2Action;
-            document.getElementById('btn-m2').innerHTML = `${data.btn2} <i class="fa-solid fa-chevron-right"></i>`;
-            
-            document.getElementById('lbl-checklist').innerText = data.lblChecklist;
-            document.getElementById('txt-p1').innerText = data.p1;
-            document.getElementById('txt-p2').innerText = data.p2;
-            document.getElementById('txt-p3').innerText = data.p3;
+            // Handle RTL for Arabic
+            if(lang === 'ar') {
+                document.body.classList.add('rtl');
+            } else {
+                document.body.classList.remove('rtl');
+            }
 
-            document.getElementById('lang-status').innerHTML = `<i class="fa-solid fa-earth-americas"></i> Language set to: <b>${lang.toUpperCase()}</b>`;
+            document.getElementById('txt-main-title').innerText = data.title;
+            document.getElementById('searchBar').placeholder = data.ph;
+            
+            document.getElementById('card1-title').innerText = data.c1t;
+            document.getElementById('card1-threat').innerText = data.c1th;
+            document.getElementById('card1-shield').innerText = data.c1sh;
+            
+            document.getElementById('card2-title').innerText = data.c2t;
+            document.getElementById('card2-threat').innerText = data.c2th;
+            document.getElementById('card2-shield').innerText = data.c2sh;
+
+            document.getElementById('lbl-threat1').innerText = data.t1;
+            document.getElementById('lbl-threat2').innerText = data.t1;
+            document.getElementById('lbl-shield1').innerText = data.s1;
+            document.getElementById('lbl-shield2').innerText = data.s1;
+            document.getElementById('btn-card1').innerText = data.btn;
+            document.getElementById('btn-card2').innerText = data.btn;
         }
 
-        // AUTO DETECTION ENGINE ON LOAD
+        // Simulated Geo-location detection setup
         window.onload = function() {
-            // Detect user's browser default language code (e.g. "hi-IN" or "hi" becomes "hi")
             let userLang = navigator.language || navigator.userLanguage; 
             userLang = userLang.split('-')[0]; 
             
-            // If we support that language, apply it automatically!
+            // Fetch Timezone to simulate local country positioning
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById('txt-loc').innerHTML = `<i class="fa-solid fa-location-dot"></i> Radar active for Region: <b>${tz}</b>`;
+
             if (dictionary[userLang]) {
                 document.getElementById('langSelect').value = userLang;
                 changeLanguage(userLang);
             } else {
-                // Default to English
                 changeLanguage('en');
             }
         };
     </script>
 </body>
 </html>
-
