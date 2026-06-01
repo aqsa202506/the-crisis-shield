@@ -3,207 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Crisis Shield | Actionable Safety & Wealth Guide</title>
+    <title>The Crisis Shield | Elite Dashboard</title>
+    
+    <!-- Modern 'Outfit' Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        :root {
+            --bg-dark: #071720; /* Midnight Teal */
+            --card-bg: #0d2636;
+            --gold: #F2A900; /* Metallic Gold */
+            --mint: #00E676; /* Neon Mint for Solutions */
+            --red: #FF4C4C; /* Danger Red */
+            --text-main: #E2E8F0;
+            --text-muted: #8AA2B3;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Outfit', sans-serif;
         }
+
         body {
-            background-color: #0f172a;
-            color: #e2e8f0;
-            padding: 20px;
+            background: linear-gradient(135deg, #040d12 0%, var(--bg-dark) 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 30px 15px;
         }
+
+        /* Elite Header */
         header {
             text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #1e1b4b, #311042);
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border: 1px solid #3730a3;
+            max-width: 900px;
+            margin: 0 auto 40px auto;
+            border-bottom: 2px solid rgba(242, 169, 0, 0.2);
+            padding-bottom: 20px;
         }
         header h1 {
-            color: #f43f5e;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
             margin-bottom: 10px;
         }
         header p {
-            color: #94a3b8;
+            color: var(--text-muted);
             font-size: 1.1rem;
+            font-weight: 300;
         }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto 30px auto;
-        }
-        .card {
-            background-color: #1e293b;
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid #334155;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .card h2 {
-            color: #fbbf24;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #334155;
-            padding-bottom: 8px;
-        }
-        .section-title {
-            font-weight: bold;
-            margin-top: 12px;
-            font-size: 0.95rem;
-        }
-        .danger { color: #f87171; }
-        .market { color: #38bdf8; }
-        .solution { color: #4ade80; }
-        
-        .card p {
-            font-size: 0.95rem;
-            color: #cbd5e1;
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        .btn {
-            display: block;
-            text-align: center;
-            background-color: #2563eb;
-            color: white;
-            padding: 12px;
-            margin-top: 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background-color: #1d4ed8;
-        }
-        .checklist-section {
-            max-width: 1200px;
+
+        .container {
+            max-width: 900px;
             margin: 0 auto;
-            background-color: #1e293b;
-            padding: 25px;
+        }
+
+        /* Dashboard List Style Cards */
+        .dashboard-item {
+            background: var(--card-bg);
+            border-left: 5px solid var(--gold);
             border-radius: 12px;
-            border: 1px solid #334155;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .checklist-section h2 {
-            color: #4ade80;
-            margin-bottom: 15px;
+        .dashboard-item:hover {
+            transform: translateX(5px);
+            border-left-color: var(--mint);
         }
-        .todo-item {
+
+        .item-header {
             display: flex;
             align-items: center;
-            margin-bottom: 12px;
-            font-size: 1rem;
+            margin-bottom: 15px;
         }
-        .todo-item input {
-            margin-right: 12px;
-            transform: scale(1.2);
+        .item-icon {
+            font-size: 2.2rem;
+            color: var(--text-main);
+            margin-right: 15px;
+            opacity: 0.9;
+        }
+        .dashboard-item h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Badges for Info */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .badge-box {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .badge-title {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .danger .badge-title { background: rgba(255, 76, 76, 0.15); color: var(--red); }
+        .success .badge-title { background: rgba(0, 230, 118, 0.15); color: var(--mint); }
+
+        /* Gold Action Button */
+        .btn-gold {
+            display: block;
+            text-align: center;
+            background: var(--gold);
+            color: #000;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        .btn-gold:hover {
+            background: #FFC000;
+            box-shadow: 0 0 15px rgba(242, 169, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Interactive Checklist */
+        .checklist-container {
+            background: linear-gradient(180deg, #0d2636 0%, #071720 100%);
+            border: 1px solid rgba(242, 169, 0, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        .checklist-container h3 {
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+        }
+        .check-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+        .check-row input[type="checkbox"] {
+            margin-top: 4px;
+            margin-right: 15px;
+            width: 22px;
+            height: 22px;
+            accent-color: var(--gold);
             cursor: pointer;
         }
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            color: #64748b;
-            font-size: 0.9rem;
+        .check-row label {
+            color: var(--text-main);
+            cursor: pointer;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        @media (min-width: 768px) {
+            .info-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🌍 The Crisis Shield</h1>
-        <p>Global Geopolitical Crisis se surakshit rahein aur sahi kadam uthakar munafe ka raasta chunein.</p>
+        <h1><i class="fa-solid fa-shield-cat"></i> The Crisis Shield</h1>
+        <p>Advanced Strategic Dashboard for Wealth Protection & Geopolitical Safety.</p>
     </header>
 
-    <div class="grid-container">
-
-        <!-- BLOCK 1: INTERNET BLACKOUT -->
-        <div class="card">
-            <div>
-                <h2>1. Undersea Internet Cables Cut</h2>
-                <p class="section-title danger">🚨 Asar (Problem):</p>
-                <p>Internet slow ya offline hone se banking aur online apps band ho sakte hain.</p>
-                <p class="section-title solution">💡 Bachne Aur Kamane Ka Raasta:</p>
-                <p>Paas me cash maintain karein aur offline maps/data save rakhein. Fayde ke liye Cybersecurity aur Satellite Internet providers ko track karein.</p>
-            </div>
-            <a href="https://www.google.com/search?q=top+cybersecurity+stocks" target="_blank" class="btn">🚀 Cybersecurity Stocks List Dekhein</a>
-        </div>
-
-        <!-- BLOCK 2: ENERGY CHOKE -->
-        <div class="card">
-            <div>
-                <h2>2. Strait of Hormuz Blockade</h2>
-                <p class="section-title danger">🚨 Asar (Problem):</p>
-                <p>Crude oil supply rukne se Petrol, Diesel aur Transportation bohot mehenga ho jayega.</p>
-                <p class="section-title solution">💡 Bachne Aur Kamane Ka Raasta:</p>
-                <p>Solar energy ya EV ka option backup me rakhein. Munafe ke liye Solar/Wind energy aur Oil drilling companies me position banayein.</p>
-            </div>
-            <a href="https://www.google.com/search?q=top+renewable+energy+stocks" target="_blank" class="btn">☀️ Top Solar Energy Options</a>
-        </div>
-
-        <!-- BLOCK 3: SEMICONDUCTOR FREEZE -->
-        <div class="card">
-            <div>
-                <h2>3. China-Taiwan Conflict</h2>
-                <p class="section-title danger">🚨 Asar (Problem):</p>
-                <p>90% advanced microchips ki supply rukne se phone, laptop aur vehicles block ho jayenge.</p>
-                <p class="section-title solution">💡 Bachne Aur Kamane Ka Raasta:</p>
-                <p>Apne devices ka dhyan rakhein. Local manufacturing aur semiconductor hubs me invest karke growth ka fayda uthayein.</p>
-            </div>
-            <a href="https://www.google.com/search?q=semiconductor+manufacturing+companies" target="_blank" class="btn">⚡ Semiconductor Companies Track Karein</a>
-        </div>
-
-        <!-- BLOCK 4: FINANCIAL SAFE HAVEN -->
-        <div class="card">
-            <div>
-                <h2>4. Global Inflation & Food Crisis</h2>
-                <p class="section-title danger">🚨 Asar (Problem):</p>
-                <p>Currency (Rupee/Dollar) ki value kam hogi aur market me panic selling shuru hogi.</p>
-                <p class="section-title solution">💡 Bachne Aur Kamane Ka Raasta:</p>
-                <p>Ghar par essential stocks maintain karein. Apne capital ko surakshit rakhne ke liye Gold aur Silver ko safe haven banayein.</p>
-            </div>
-            <a href="https://www.google.com/search?q=how+to+invest+in+sovereign+gold+bonds" target="_blank" class="btn">🏆 Gold ETF / SGB Guide</a>
-        </div>
-
-    </div>
-
-    <!-- INTERACTIVE CHECKLIST SECTION -->
-    <div class="checklist-section">
-        <h2>🎯 Interactive Emergency Checklist</h2>
-        <p style="color: #94a3b8; margin-bottom: 15px; font-size: 0.95rem;">Log is list ka use karke khud ko check kar sakte hain ki kya wo ready hain:</p>
+    <div class="container">
         
-        <div class="todo-item">
-            <input type="checkbox" id="item1">
-            <label for="item1">Kam se kam 15-30 din ka liquid cash safe jagah par rakha hai.</label>
+        <!-- Dashboard Item 1 -->
+        <div class="dashboard-item">
+            <div class="item-header">
+                <i class="fa-solid fa-satellite-dish item-icon"></i>
+                <h2>Communication Blackout</h2>
+            </div>
+            <div class="info-grid">
+                <div class="badge-box danger">
+                    <span class="badge-title"><i class="fa-solid fa-triangle-exclamation"></i> The Threat</span>
+                    <p>Undersea internet cables cut. Global banking and cloud servers paralyzed.</p>
+                </div>
+                <div class="badge-box success">
+                    <span class="badge-title"><i class="fa-solid fa-check-double"></i> The Strategy</span>
+                    <p>Keep physical cash reserves. Invest in Satellite Internet & Cybersecurity.</p>
+                </div>
+            </div>
+            <a href="https://www.google.com/search?q=top+cybersecurity+stocks" target="_blank" class="btn-gold">
+                Monitor Security Stocks <i class="fa-solid fa-arrow-right"></i>
+            </a>
         </div>
-        <div class="todo-item">
-            <input type="checkbox" id="item2">
-            <label for="item2">Important identity documents ki offline digital copy ready hai.</label>
-        </div>
-        <div class="todo-item">
-            <input type="checkbox" id="item3">
-            <label for="item3">Portfolio ka 10-15% hissa Gold (Sona) me invested hai.</label>
-        </div>
-        <div class="todo-item">
-            <input type="checkbox" id="item4">
-            <label for="item4">Emergency contacts aur offline maps phone me downloaded hain.</label>
-        </div>
-    </div>
 
-    <footer>
-        <p>&copy; 2026 The Crisis Shield. Solution & Action Platform. Created with AI Collaboration.</p>
-    </footer>
+        <!-- Dashboard Item 2 -->
+        <div class="dashboard-item">
+            <div class="item-header">
+                <i class="fa-solid fa-gas-pump item-icon"></i>
+                <h2>Energy Crisis</h2>
+            </div>
+            <div class="info-grid">
+                <div class="badge-box danger">
+                    <span class="badge-title"><i class="fa-solid fa-triangle-exclamation"></i> The Threat</span>
+                    <p>Middle-East blockades causing extreme crude oil and transport inflation.</p>
+                </div>
+                <div class="badge-box success">
+                    <span class="badge-title"><i class="fa-solid fa-check-double"></i> The Strategy</span>
+                    <p>Shift to independent energy sources. Position in Green Energy stocks.</p>
+                </div>
+            </div>
+            <a href="https://www.google.com/search?q=top+renewable+energy+stocks" target="_blank" class="btn-gold">
+                Explore Solar & Wind ETFs <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- Dashboard Item 3 -->
+        <div class="dashboard-item">
+            <div class="item-header">
+                <i class="fa-solid fa-globe item-icon"></i>
+                <h2>Market Inflation & Collapse</h2>
+            </div>
+            <div class="info-grid">
+                <div class="badge-box danger">
+                    <span class="badge-title"><i class="fa-solid fa-triangle-exclamation"></i> The Threat</span>
+                    <p>Currency devaluation, panic selling, and severe food supply chain disruption.</p>
+                </div>
+                <div class="badge-box success">
+                    <span class="badge-title"><i class="fa-solid fa-check-double"></i> The Strategy</span>
+                    <p>Preserve purchasing power with Gold/Silver. Stock up on essential supplies.</p>
+                </div>
+            </div>
+            <a href="https://www.google.com/search?q=how+to+invest+in+sovereign+gold+bonds" target="_blank" class="btn-gold">
+                Secure Wealth with Gold <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- Advanced Checklist -->
+        <div class="checklist-container">
+            <h3><i class="fa-solid fa-list-check"></i> Personal Readiness Protocol</h3>
+            
+            <div class="check-row">
+                <input type="checkbox" id="c1">
+                <label for="c1"><strong>Liquid Assets:</strong> 30 days of physical cash secured at home.</label>
+            </div>
+            <div class="check-row">
+                <input type="checkbox" id="c2">
+                <label for="c2"><strong>Data Backup:</strong> Offline copies of IDs, property papers, and medical records.</label>
+            </div>
+            <div class="check-row">
+                <input type="checkbox" id="c3">
+                <label for="c3"><strong>Portfolio:</strong> Shifted at least 15% of wealth into Gold or safe-haven assets.</label>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 </html>
+
