@@ -3,279 +3,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Crisis Shield | Elite Dashboard</title>
+    <title>The Crisis Shield | Global Intelligence Hub</title>
     
-    <!-- Modern 'Outfit' Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Premium 'Plus Jakarta Sans' Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-dark: #071720; /* Midnight Teal */
-            --card-bg: #0d2636;
-            --gold: #F2A900; /* Metallic Gold */
-            --mint: #00E676; /* Neon Mint for Solutions */
-            --red: #FF4C4C; /* Danger Red */
-            --text-main: #E2E8F0;
-            --text-muted: #8AA2B3;
+            --bg-global: #060913;
+            --surface: #0e1326;
+            --surface-card: #151c33;
+            --accent-gold: #e2b353;
+            --accent-blue: #3b82f6;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --status-red: #ef4444;
+            --status-green: #10b981;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #040d12 0%, var(--bg-dark) 100%);
-            color: var(--text-main);
+            background-color: var(--bg-global);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 30px 15px;
+            padding: 20px 10px;
         }
 
-        /* Elite Header */
-        header {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 40px auto;
-            border-bottom: 2px solid rgba(242, 169, 0, 0.2);
-            padding-bottom: 20px;
-        }
-        header h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            font-weight: 300;
-        }
-
-        .container {
-            max-width: 900px;
+        .wrapper {
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        /* Dashboard List Style Cards */
-        .dashboard-item {
-            background: var(--card-bg);
-            border-left: 5px solid var(--gold);
-            border-radius: 12px;
-            padding: 25px;
+        /* Language Utility Bar */
+        .lang-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface);
+            padding: 10px 20px;
+            border-radius: 30px;
             margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        .dashboard-item:hover {
-            transform: translateX(5px);
-            border-left-color: var(--mint);
+        .lang-bar span { font-size: 0.85rem; color: var(--text-secondary); }
+        .lang-select {
+            background: transparent;
+            color: var(--accent-gold);
+            border: none;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
         }
 
-        .item-header {
+        /* Clean Profile Header (Inspired by Premium Account Dashboards) */
+        .profile-header {
+            text-align: center;
+            background: linear-gradient(180deg, var(--surface) 0%, var(--bg-global) 100%);
+            padding: 40px 20px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 30px;
+        }
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-blue));
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #000;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
-        .item-icon {
-            font-size: 2.2rem;
-            color: var(--text-main);
-            margin-right: 15px;
-            opacity: 0.9;
-        }
-        .dashboard-item h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
+        .profile-header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+        .profile-header p { color: var(--text-secondary); font-size: 1rem; max-width: 500px; margin: 0 auto; font-weight: 400; }
+
+        /* Dashboard Sections */
+        .section-title {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-gold);
+            margin: 30px 0 15px 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Badges for Info */
-        .info-grid {
+        /* Live Conflict Tracker Grid */
+        .live-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        @media(min-width: 600px) { .live-grid { grid-template-columns: 1fr 1fr; } }
+
+        .live-card {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 16px;
+            position: relative;
+        }
+        .live-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--status-red);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .live-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--status-red);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.4; }
+            100% { transform: scale(0.9); opacity: 1; }
+        }
+
+        .live-card h3 { font-size: 1.1rem; margin-bottom: 10px; padding-right: 80px; }
+        .live-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+
+        /* Middle Class Solution Cards */
+        .solution-list { display: flex; flex-direction: column; gap: 15px; }
+        .solution-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+        }
+        .solution-card:hover { border-color: rgba(59, 130, 246, 0.2); transform: translateY(-2px); }
+        .solution-card h3 { font-size: 1.2rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .solution-card h3 i { color: var(--accent-blue); }
+        
+        .box-split {
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
             margin-bottom: 20px;
         }
+        @media(min-width: 600px) { .box-split { grid-template-columns: 1fr 1fr; } }
         
-        .badge-box {
-            background: rgba(0, 0, 0, 0.25);
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-        }
-        .badge-title {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-        .danger .badge-title { background: rgba(255, 76, 76, 0.15); color: var(--red); }
-        .success .badge-title { background: rgba(0, 230, 118, 0.15); color: var(--mint); }
+        .sub-box { background: rgba(0,0,0,0.15); padding: 15px; border-radius: 10px; font-size: 0.9rem; }
+        .sub-box span { display: block; font-weight: 700; margin-bottom: 5px; font-size: 0.8rem; text-transform: uppercase; }
+        .sub-box.risk span { color: var(--status-red); }
+        .sub-box.action span { color: var(--status-green); }
 
-        /* Gold Action Button */
-        .btn-gold {
-            display: block;
-            text-align: center;
-            background: var(--gold);
-            color: #000;
-            padding: 12px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-        .btn-gold:hover {
-            background: #FFC000;
-            box-shadow: 0 0 15px rgba(242, 169, 0, 0.4);
-            transform: translateY(-2px);
-        }
-
-        /* Interactive Checklist */
-        .checklist-container {
-            background: linear-gradient(180deg, #0d2636 0%, #071720 100%);
-            border: 1px solid rgba(242, 169, 0, 0.3);
-            border-radius: 12px;
-            padding: 30px;
-            margin-top: 40px;
-        }
-        .checklist-container h3 {
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.4rem;
-        }
-        .check-row {
+        /* Clean Minimal Action Button */
+        .action-link {
             display: flex;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            padding: 15px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--surface-card);
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.2s;
         }
-        .check-row input[type="checkbox"] {
-            margin-top: 4px;
-            margin-right: 15px;
-            width: 22px;
-            height: 22px;
-            accent-color: var(--gold);
-            cursor: pointer;
-        }
-        .check-row label {
-            color: var(--text-main);
-            cursor: pointer;
-            font-weight: 300;
-            line-height: 1.5;
-        }
+        .action-link:hover { background: var(--accent-blue); border-color: var(--accent-blue); }
 
-        @media (min-width: 768px) {
-            .info-grid { grid-template-columns: 1fr 1fr; }
-        }
+        /* Checklist */
+        .protocol-box { background: var(--surface); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.03); }
+        .check-group { display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: rgba(0,0,0,0.15); border-radius: 12px; margin-bottom: 12px; }
+        .check-group input { width: 20px; height: 20px; accent-color: var(--accent-gold); margin-top: 2px; cursor: pointer; }
+        .check-group label { font-size: 0.95rem; color: var(--text-primary); cursor: pointer; line-height: 1.4; }
+
+        footer { text-align: center; padding: 40px 0; color: var(--text-secondary); font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1><i class="fa-solid fa-shield-cat"></i> The Crisis Shield</h1>
-        <p>Advanced Strategic Dashboard for Wealth Protection & Geopolitical Safety.</p>
-    </header>
-
-    <div class="container">
+    <div class="wrapper">
         
-        <!-- Dashboard Item 1 -->
-        <div class="dashboard-item">
-            <div class="item-header">
-                <i class="fa-solid fa-satellite-dish item-icon"></i>
-                <h2>Communication Blackout</h2>
-            </div>
-            <div class="info-grid">
-                <div class="badge-box danger">
-                    <span class="badge-title"><i class="fa-solid fa-triangle-exclamation"></i> The Threat</span>
-                    <p>Undersea internet cables cut. Global banking and cloud servers paralyzed.</p>
-                </div>
-                <div class="badge-box success">
-                    <span class="badge-title"><i class="fa-solid fa-check-double"></i> The Strategy</span>
-                    <p>Keep physical cash reserves. Invest in Satellite Internet & Cybersecurity.</p>
-                </div>
-            </div>
-            <a href="https://www.google.com/search?q=top+cybersecurity+stocks" target="_blank" class="btn-gold">
-                Monitor Security Stocks <i class="fa-solid fa-arrow-right"></i>
-            </a>
+        <!-- Language Top Bar -->
+        <div class="lang-bar">
+            <span id="lang-status"><i class="fa-solid fa-earth-americas"></i> Detecting location language...</span>
+            <select class="lang-select" id="langSelect" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="hi">Hindi (हिंदी)</option>
+                <option value="es">Español</option>
+            </select>
         </div>
 
-        <!-- Dashboard Item 2 -->
-        <div class="dashboard-item">
-            <div class="item-header">
-                <i class="fa-solid fa-gas-pump item-icon"></i>
-                <h2>Energy Crisis</h2>
+        <!-- Dashboard Account-Style Profile Header -->
+        <header class="profile-header">
+            <div class="profile-avatar"><i class="fa-solid fa-user-shield"></i></div>
+            <h1 id="txt-title">The Crisis Shield</h1>
+            <p id="txt-subtitle">Your strategic protection radar. Tailored to safeguard middle-class families from global economic turbulence and conflicts.</p>
+        </header>
+
+        <!-- LIVE TRACKER SECTION -->
+        <div class="section-title"><i class="fa-solid fa-satellite"></i> <span id="lbl-live">Live Threat Monitor</span></div>
+        <div class="live-grid">
+            <div class="live-card">
+                <div class="live-badge"><div class="pulse-dot"></div><span>Live</span></div>
+                <h3 id="txt-c1-title">Eastern Europe Sector</h3>
+                <p id="txt-c1-desc">Russia-Ukraine tension analysis: Evaluating supply chain logs, grain exports, and inflation impact on households.</p>
             </div>
-            <div class="info-grid">
-                <div class="badge-box danger">
-                    <span class="badge-title"><i class="fa-solid fa-triangle-exclamation"></i> The Threat</span>
-                    <p>Middle-East blockades causing extreme crude oil and transport inflation.</p>
-                </div>
-                <div class="badge-box success">
-                    <span class="badge-title"><i class="fa-solid fa-check-double"></i> The Strategy</span>
-                    <p>Shift to independent energy sources. Position in Green Energy stocks.</p>
-                </div>
+            <div class="live-card">
+                <div class="live-badge"><div class="pulse-dot"></div><span>Live</span></div>
+                <h3 id="txt-c2-title">Middle East Corridors</h3>
+                <p id="txt-c2-desc">Strait of Hormuz transit metrics: Tracking real-time crude pricing alerts to protect your domestic transport budget.</p>
             </div>
-            <a href="https://www.google.com/search?q=top+renewable+energy+stocks" target="_blank" class="btn-gold">
-                Explore Solar & Wind ETFs <i class="fa-solid fa-arrow-right"></i>
-            </a>
         </div>
 
-        <!-- Dashboard Item 3 -->
-        <div class="dashboard-item">
-            <div class="item-header">
-                <i class="fa-solid fa-globe item-icon"></i>
-                <h2>Market Inflation & Collapse</h2>
-            </div>
-            <div class="info-grid">
-                <div class="badge-box danger">
-                    <span class="badge-title"><i class="fa-solid fa-triangle-exclamation"></i> The Threat</span>
-                    <p>Currency devaluation, panic selling, and severe food supply chain disruption.</p>
-                </div>
-                <div class="badge-box success">
-                    <span class="badge-title"><i class="fa-solid fa-check-double"></i> The Strategy</span>
-                    <p>Preserve purchasing power with Gold/Silver. Stock up on essential supplies.</p>
-                </div>
-            </div>
-            <a href="https://www.google.com/search?q=how+to+invest+in+sovereign+gold+bonds" target="_blank" class="btn-gold">
-                Secure Wealth with Gold <i class="fa-solid fa-arrow-right"></i>
-            </a>
-        </div>
-
-        <!-- Advanced Checklist -->
-        <div class="checklist-container">
-            <h3><i class="fa-solid fa-list-check"></i> Personal Readiness Protocol</h3>
+        <!-- MIDDLE CLASS ESSENTIAL MATRICES -->
+        <div class="section-title"><i class="fa-solid fa-box-tissue"></i> <span id="lbl-solutions">Middle-Class Protection Matrix</span></div>
+        <div class="solution-list">
             
-            <div class="check-row">
-                <input type="checkbox" id="c1">
-                <label for="c1"><strong>Liquid Assets:</strong> 30 days of physical cash secured at home.</label>
+            <!-- Card 1: Job & Expense -->
+            <div class="solution-card">
+                <h3 id="txt-m1-title"><i class="fa-solid fa-house-laptop"></i> Job Security & Living Cost</h3>
+                <div class="box-split">
+                    <div class="sub-box risk">
+                        <span id="lbl-risk1">The Pressure</span>
+                        <p id="txt-m1-risk">Tech freezes and supply delays can cause sudden local price hikes in fuel and groceries.</p>
+                    </div>
+                    <div class="sub-box action">
+                        <span id="lbl-action1">The Shield</span>
+                        <p id="txt-m1-action">Identify high-demand local sectors. Build an inflation-proof family expense tracker.</p>
+                    </div>
+                </div>
+                <a href="https://www.google.com/search?q=inflation+protection+strategies+for+middle+class" target="_blank" class="action-link" id="btn-m1">
+                    Access Shield Tools <i class="fa-solid fa-chevron-right"></i>
+                </a>
             </div>
-            <div class="check-row">
-                <input type="checkbox" id="c2">
-                <label for="c2"><strong>Data Backup:</strong> Offline copies of IDs, property papers, and medical records.</label>
+
+            <!-- Card 2: Savings -->
+            <div class="solution-card">
+                <h3 id="txt-m2-title"><i class="fa-solid fa-piggy-bank"></i> Hard-Earned Savings Protection</h3>
+                <div class="box-split">
+                    <div class="sub-box risk">
+                        <span id="lbl-risk2">The Pressure</span>
+                        <p id="txt-m2-risk">Bank server slow-downs or currency value drops during sudden international emergencies.</p>
+                    </div>
+                    <div class="sub-box action">
+                        <span id="lbl-action2">The Shield</span>
+                        <p id="txt-m2-action">Diversify into Sovereign Gold or fractional safe assets. Keep accessible cash liquid.</p>
+                    </div>
+                </div>
+                <a href="https://www.google.com/search?q=how+to+buy+sovereign+gold+bonds" target="_blank" class="action-link" id="btn-m2">
+                    View Safe Asset Guides <i class="fa-solid fa-chevron-right"></i>
+                </a>
             </div>
-            <div class="check-row">
-                <input type="checkbox" id="c3">
-                <label for="c3"><strong>Portfolio:</strong> Shifted at least 15% of wealth into Gold or safe-haven assets.</label>
+
+        </div>
+
+        <!-- REASSURING CHECKLIST -->
+        <div class="section-title"><i class="fa-solid fa-circle-check"></i> <span id="lbl-checklist">Family Readiness Protocol</span></div>
+        <div class="protocol-box">
+            <div class="check-group">
+                <input type="checkbox" id="p1">
+                <label for="p1" id="txt-p1">Emergency liquidity: Safeguarded equivalent to 1 month of utility expenses locally.</label>
+            </div>
+            <div class="check-group">
+                <input type="checkbox" id="p2">
+                <label for="p2" id="txt-p2">Digital insurance: Essential identification and health cards stored securely offline.</label>
+            </div>
+            <div class="check-group">
+                <input type="checkbox" id="p3">
+                <label for="p3" id="txt-p3">Asset hedging: Allocated defensive buffer via Gold or trusted index funds.</label>
             </div>
         </div>
+
+        <footer>
+            <p>&copy; 2026 The Crisis Shield | Modern Household Security System</p>
+        </footer>
 
     </div>
 
+    <!-- AUTO DETECT & MULTI LANGUAGE ENGINE -->
+    <script>
+        const dictionary = {
+            en: {
+                title: "The Crisis Shield",
+                subtitle: "Your strategic protection radar. Tailored to safeguard middle-class families from global economic turbulence and conflicts.",
+                lblLive: "Live Threat Monitor",
+                c1Title: "Eastern Europe Sector",
+                c1Desc: "Russia-Ukraine tension analysis: Evaluating supply chain logs, grain exports, and inflation impact on households.",
+                c2Title: "Middle East Corridors",
+                c2Desc: "Strait of Hormuz transit metrics: Tracking real-time crude pricing alerts to protect your domestic transport budget.",
+                lblSolutions: "Middle-Class Protection Matrix",
+                m1Title: "Job Security & Living Cost",
+                risk1: "The Pressure",
+                m1Risk: "Tech freezes and supply delays can cause sudden local price hikes in fuel and groceries.",
+                action1: "The Shield",
+                m1Action: "Identify high-demand local sectors. Build an inflation-proof family expense tracker.",
+                btn1: "Access Shield Tools",
+                m2Title: "Hard-Earned Savings Protection",
+                risk2: "The Pressure",
+                m2Risk: "Bank server slow-downs or currency value drops during sudden international emergencies.",
+                action2: "The Shield",
+                m2Action: "Diversify into Sovereign Gold or fractional safe assets. Keep accessible cash liquid.",
+                btn2: "View Safe Asset Guides",
+                lblChecklist: "Family Readiness Protocol",
+                p1: "Emergency liquidity: Safeguarded equivalent to 1 month of utility expenses locally.",
+                p2: "Digital insurance: Essential identification and health cards stored securely offline.",
+                p3: "Asset hedging: Allocated defensive buffer via Gold or trusted index funds."
+            },
+            hi: {
+                title: "द क्राइसिस शील्ड",
+                subtitle: "आपका रणनीतिक सुरक्षा रडार। मध्यमवर्गीय परिवारों को वैश्विक आर्थिक उथल-पुथल और युद्ध के खतरों से सुरक्षित रखने के लिए विशेष रूप से निर्मित।",
+                lblLive: "लाइव खतरा मॉनिटर",
+                c1Title: "पूर्वी यूरोप क्षेत्र",
+                c1Desc: "रूस-यूक्रेन तनाव विश्लेषण: सप्लाई चेन, अनाज निर्यात और आम घरों पर पड़ने वाले महंगाई के असर की ट्रैकिंग।",
+                c2Title: "मिडल ईस्ट कॉरिडोर",
+                c2Desc: "स्ट्रेट ऑफ होर्मुज मार्ग: पेट्रोल-डीजल और ट्रांसपोर्ट बजट को सुरक्षित रखने के लिए कच्चे तेल की कीमतों का लाइव अलर्ट।",
+                lblSolutions: "मिडिल-क्लास सुरक्षा मैट्रिक्स",
+                m1Title: "जॉब सुरक्षा और घरेलू खर्च",
+                risk1: "संकट का असर",
+                m1Risk: "वैश्विक तनाव के कारण आपके शहर में अचानक पेट्रोल, डीजल और राशन के दाम बढ़ सकते हैं।",
+                action1: "बचाव का रास्ता",
+                m1Action: "सुरक्षित लोकल सेक्टर्स की पहचान करें और एक महंगाई-मुक्त फैमिली बजट प्लानर तैयार करें।",
+                btn1: "सुरक्षा टूल्स देखें",
+                m2Title: "मेहनत की कमाई की सुरक्षा",
+                risk2: "संकट का असर",
+                m2Risk: "अंतरराष्ट्रीय आपातकाल के समय बैंक सर्वर धीमे होना या करेंसी (रुपये) की वैल्यू कम हो जाना।",
+                action2: "बचाव का रास्ता",
+                m2Action: "अपनी सेविंग्स का कुछ हिस्सा सॉवरेन गोल्ड (सोने) में रखें और घर पर कुछ कैश लिक्विड मेन्टेन करें।",
+                btn2: "सुरक्षित एसेट गाइड",
+                lblChecklist: "पारिवारिक सुरक्षा प्रोटोकॉल",
+                p1: "आपातकालीन फंड: कम से कम 1 महीने के घर के खर्च का कैश सुरक्षित स्थान पर रखा है।",
+                p2: "डिजिटल बैकअप: जरूरी पहचान पत्र और मेडिकल पेपर्स की ऑफलाइन कॉपी फोन में सेव है।",
+                p3: "गोल्ड हेजिंग: अपनी कुल जमा पूंजी का 10-15% हिस्सा गोल्ड या सुरक्षित फंड्स में लगाया है।"
+            },
+            es: {
+                title: "The Crisis Shield",
+                subtitle: "Su radar de protección estratégica. Diseñado para proteger a las familias de clase media de las turbulencias y conflictos económicos globales.",
+                lblLive: "Monitor de Amenazas en Vivo",
+                c1Title: "Sector de Europa del Este",
+                c1Desc: "Análisis de la tensión Rusia-Ucrania: Evaluando la cadena de suministro y el impacto de la inflación en los hogares.",
+                c2Title: "Corredores de Medio Oriente",
+                c2Desc: "Métricas de tránsito del Estrecho de Ormuz: Seguimiento de alertas de precios del crudo para proteger su presupuesto.",
+                lblSolutions: "Matriz de Protección de Clase Media",
+                m1Title: "Seguridad Laboral y Costo de Vida",
+                risk1: "La Presión",
+                m1Risk: "Los bloqueos tecnológicos pueden causar aumentos repentinos en los precios locales del combustible y alimentos.",
+                action1: "El Escudo",
+                m1Action: "Identifique sectores locales de alta demanda. Cree un registro de gastos familiares libre de inflación.",
+                btn1: "Acceder a Herramientas",
+                m2Title: "Protección de Ahorros",
+                risk2: "La Presión",
+                m2Risk: "Ralentización de servidores bancarios o caídas del valor de la moneda durante emergencias internacionales.",
+                action2: "El Escudo",
+                m2Action: "Diversifique en oro soberano o activos seguros fraccionados. Mantenga efectivo líquido accesible.",
+                btn2: "Ver Guías de Activos",
+                lblChecklist: "Protocolo de Preparación Familiar",
+                p1: "Liquidez de emergencia: Al menos 1 mes de gastos corrientes resguardados localmente.",
+                p2: "Seguro digital: Copias de identificaciones oficiales guardadas de forma segura sin conexión.",
+                p3: "Cobertura de activos: Margen defensivo asignado a través de oro o fondos indexados confiables."
+            }
+        };
+
+        function changeLanguage(lang) {
+            const data = dictionary[lang] || dictionary['en'];
+            
+            document.getElementById('txt-title').innerText = data.title;
+            document.getElementById('txt-subtitle').innerText = data.subtitle;
+            document.getElementById('lbl-live').innerText = data.lblLive;
+            document.getElementById('txt-c1-title').innerText = data.c1Title;
+            document.getElementById('txt-c1-desc').innerText = data.c1Desc;
+            document.getElementById('txt-c2-title').innerText = data.c2Title;
+            document.getElementById('txt-c2-desc').innerText = data.c2Desc;
+            document.getElementById('lbl-solutions').innerText = data.lblSolutions;
+            
+            document.getElementById('txt-m1-title').innerHTML = `<i class="fa-solid fa-house-laptop"></i> ${data.m1Title}`;
+            document.getElementById('lbl-risk1').innerText = data.risk1;
+            document.getElementById('txt-m1-risk').innerText = data.m1Risk;
+            document.getElementById('lbl-action1').innerText = data.action1;
+            document.getElementById('txt-m1-action').innerText = data.m1Action;
+            document.getElementById('btn-m1').innerHTML = `${data.btn1} <i class="fa-solid fa-chevron-right"></i>`;
+            
+            document.getElementById('txt-m2-title').innerHTML = `<i class="fa-solid fa-piggy-bank"></i> ${data.m2Title}`;
+            document.getElementById('lbl-risk2').innerText = data.risk2;
+            document.getElementById('txt-m2-risk').innerText = data.m2Risk;
+            document.getElementById('lbl-action2').innerText = data.action2;
+            document.getElementById('txt-m2-action').innerText = data.m2Action;
+            document.getElementById('btn-m2').innerHTML = `${data.btn2} <i class="fa-solid fa-chevron-right"></i>`;
+            
+            document.getElementById('lbl-checklist').innerText = data.lblChecklist;
+            document.getElementById('txt-p1').innerText = data.p1;
+            document.getElementById('txt-p2').innerText = data.p2;
+            document.getElementById('txt-p3').innerText = data.p3;
+
+            document.getElementById('lang-status').innerHTML = `<i class="fa-solid fa-earth-americas"></i> Language set to: <b>${lang.toUpperCase()}</b>`;
+        }
+
+        // AUTO DETECTION ENGINE ON LOAD
+        window.onload = function() {
+            // Detect user's browser default language code (e.g. "hi-IN" or "hi" becomes "hi")
+            let userLang = navigator.language || navigator.userLanguage; 
+            userLang = userLang.split('-')[0]; 
+            
+            // If we support that language, apply it automatically!
+            if (dictionary[userLang]) {
+                document.getElementById('langSelect').value = userLang;
+                changeLanguage(userLang);
+            } else {
+                // Default to English
+                changeLanguage('en');
+            }
+        };
+    </script>
 </body>
 </html>
 
