@@ -4,24 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- 🛡️ ANTI-HACKER SECURITY FRAMEWORK -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:;">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
-    <title>CRISIS SHIELD // Terminal v2.0</title>
+    <title>CRISIS SHIELD // Command Center</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg: #030712;
-            --surface: #0b1329;
-            --surface-glow: #111c3a;
-            --gold: #f59e0b;
-            --blue: #3b82f6;
-            --green: #10b981;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --bg: #030712; --surface: #0b1329; --gold: #f59e0b; --blue: #3b82f6; 
+            --green: #10b981; --red: #ef4444; --text-main: #f3f4f6; --text-muted: #9ca3af;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -34,47 +29,52 @@
             border-bottom: 1px solid rgba(59, 130, 246, 0.2);
             overflow: hidden; z-index: 9999; display: flex; align-items: center;
         }
-        .ticker-track { display: flex; white-space: nowrap; animation: scroll 30s linear infinite; }
+        .ticker-track { display: flex; white-space: nowrap; animation: scroll 35s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .ticker-node { padding: 0 30px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; font-weight: 700; }
-        .up { color: var(--green); } .down { color: #ef4444; }
+        .up { color: var(--green); } .down { color: var(--red); }
 
         /* MAIN CONTAINER */
-        .app-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .app-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
 
-        /* HERO HEADER */
-        .hero { text-align: center; margin-bottom: 40px; }
-        .hero h1 { font-weight: 800; font-size: 2.5rem; letter-spacing: -1px; background: linear-gradient(to right, #fff, var(--text-muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .secure-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: var(--green); padding: 6px 16px; border-radius: 30px; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; margin-top: 12px; }
+        /* HERO HEADER & STATUS */
+        .hero-section { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 20px; }
+        .hero-title h1 { font-weight: 800; font-size: 2.2rem; background: linear-gradient(to right, #fff, var(--text-muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-title p { color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-top: 5px; }
+        
+        .threat-meter { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 12px 24px; border-radius: 16px; display: flex; align-items: center; gap: 10px; }
+        .pulse { width: 10px; height: 10px; background: var(--red); border-radius: 50%; box-shadow: 0 0 10px var(--red); animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
+        @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
 
-        /* CONTROL PANEL (Language & Categories) */
-        .control-panel { display: flex; flex-direction: column; gap: 15px; background: var(--surface); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 24px; margin-bottom: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-        .panel-top { display: flex; justify-content: space-between; align-items: center; }
-        .lang-select { background: #111c3a; color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 12px; font-weight: 600; cursor: pointer; outline: none; }
+        /* CONTROL PANEL */
+        .control-panel { background: var(--surface); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; margin-bottom: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); display: flex; flex-direction: column; gap: 20px; }
+        .panel-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .lang-select { background: #111c3a; color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 10px 16px; border-radius: 12px; font-weight: 600; cursor: pointer; outline: none; }
         
         /* CATEGORY SWITCHER TABS */
-        .tabs-container { display: flex; gap: 10px; width: 100%; overflow-x: auto; padding-bottom: 5px; }
-        .tab-btn { flex: 1; min-width: 140px; padding: 12px; background: #111827; border: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); border-radius: 14px; cursor: pointer; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease; }
-        .tab-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+        .tabs-container { display: flex; gap: 12px; width: 100%; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .tabs-container::-webkit-scrollbar { display: none; }
+        .tab-btn { flex: 1; min-width: 130px; padding: 14px; background: #111827; border: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); border-radius: 14px; cursor: pointer; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease; white-space: nowrap; }
+        .tab-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
 
         /* AI COMMAND INPUT */
         .search-box-wrapper { position: relative; width: 100%; }
-        .ai-search-bar { width: 100%; padding: 20px 24px; padding-left: 55px; background: #070b16; border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 18px; color: #fff; font-size: 1rem; outline: none; transition: all 0.3s ease; box-shadow: inset 0 2px 4px rgba(0,0,0,0.6); }
-        .ai-search-bar:focus { border-color: var(--gold); box-shadow: 0 0 25px rgba(245, 158, 11, 0.15), inset 0 2px 4px rgba(0,0,0,0.6); }
+        .ai-search-bar { width: 100%; padding: 20px 24px; padding-left: 55px; background: #070b16; border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px; color: #fff; font-size: 1rem; outline: none; transition: all 0.3s ease; }
+        .ai-search-bar:focus { border-color: var(--gold); box-shadow: 0 0 20px rgba(245, 158, 11, 0.15); }
         .search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: var(--blue); font-size: 1.2rem; }
 
-        /* CARDS PLATFORM GRID */
-        .matrix-grid { display: flex; flex-direction: column; gap: 20px; }
-        .intel-card { background: linear-gradient(145deg, var(--surface), #080d1a); border-radius: 24px; padding: 30px; border: 1px solid rgba(255,255,255,0.03); position: relative; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); animation: fadeInUp 0.4s ease; }
-        .intel-card:hover { transform: translateY(-4px); border-color: rgba(245, 158, 11, 0.3); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* 🧠 GRID DASHBOARD (Makes it look FULL and Premium) */
+        .matrix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+        .intel-card { background: linear-gradient(145deg, var(--surface), #080d1a); border-radius: 20px; padding: 25px; border: 1px solid rgba(255,255,255,0.03); transition: all 0.3s ease; animation: fadeInUp 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; }
+        .intel-card:hover { transform: translateY(-5px); border-color: rgba(245, 158, 11, 0.4); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
-        .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
         .card-icon { width: 45px; height: 45px; background: rgba(245, 158, 11, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.3rem; }
-        .intel-card h2 { font-size: 1.4rem; font-weight: 700; color: #fff; }
-        .intel-card p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; }
+        .intel-card h2 { font-size: 1.2rem; font-weight: 700; color: #fff; line-height: 1.3; }
+        .intel-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
         
-        .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; background: var(--surface); border-radius: 20px; border: 1px dashed rgba(255,255,255,0.1); }
         .rtl { direction: rtl; text-align: right; }
         .rtl .search-icon { left: auto; right: 22px; }
         .rtl .ai-search-bar { padding-left: 24px; padding-right: 55px; }
@@ -82,21 +82,37 @@
 </head>
 <body>
 
+    <!-- 📈 LIVE TICKER -->
     <div class="ticker-bar">
-        <div class="ticker-track" id="tickerTrack">
-            </div>
+        <div class="ticker-track" id="tickerTrack"></div>
     </div>
 
     <div class="app-container">
         
-        <div class="hero">
-            <h1>THE CRISIS SHIELD</h1>
-            <div class="secure-badge"><i class="fa-solid fa-shield-cat"></i> QUANTUM HARDENED // ANTI-XSS SOURCE ACTIVE</div>
+        <!-- HERO HEAD & THREAT LEVEL -->
+        <div class="hero-section">
+            <div class="hero-title">
+                <h1>THE CRISIS SHIELD</h1>
+                <p><i class="fa-solid fa-lock"></i> QUANTUM HARDENED // ANTI-XSS ACTIVE</p>
+            </div>
+            <div class="threat-meter">
+                <div class="pulse"></div>
+                <div>
+                    <span style="display: block; font-size: 0.7rem; color: #fca5a5; font-weight: 700; letter-spacing: 1px;">GLOBAL THREAT LEVEL</span>
+                    <span style="color: var(--red); font-family: 'JetBrains Mono', monospace; font-weight: 800;">ELEVATED (MARKET VOLATILITY)</span>
+                </div>
+            </div>
         </div>
 
+        <!-- CONTROL PLATFORM -->
         <div class="control-panel">
             <div class="panel-top">
-                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--blue); font-weight:700;">// SELECT PROFILE MATRIX</span>
+                <div class="tabs-container">
+                    <button class="tab-btn active" id="tab-investor" onclick="setCategory('investor')"><i class="fa-solid fa-chart-pie"></i> Investor</button>
+                    <button class="tab-btn" id="tab-business" onclick="setCategory('business')"><i class="fa-solid fa-briefcase"></i> Business</button>
+                    <button class="tab-btn" id="tab-student" onclick="setCategory('student')"><i class="fa-solid fa-user-astronaut"></i> Student</button>
+                    <button class="tab-btn" id="tab-family" onclick="setCategory('family')"><i class="fa-solid fa-house-chimney-window"></i> Family</button>
+                </div>
                 <select class="lang-select" id="langSelect" onchange="setLanguage(this.value)">
                     <option value="en">English (EN)</option>
                     <option value="hi">Hinglish (HI)</option>
@@ -104,77 +120,124 @@
                 </select>
             </div>
 
-            <div class="tabs-container">
-                <button class="tab-btn active" id="tab-investor" onclick="setCategory('investor')"><i class="fa-solid fa-chart-line"></i> Investor</button>
-                <button class="tab-btn" id="tab-student" onclick="setCategory('student')"><i class="fa-solid fa-user-graduate"></i> Student</button>
-                <button class="tab-btn" id="tab-family" onclick="setCategory('family')"><i class="fa-solid fa-house-chimney"></i> Homemaker</button>
+            <!-- AI COMMAND INPUT -->
+            <div class="search-box-wrapper">
+                <i class="fa-solid fa-microchip search-icon"></i>
+                <input type="text" class="ai-search-bar" id="searchBar" onkeyup="renderDashboard()" placeholder="Ask AI Matrix or scan system alerts...">
             </div>
         </div>
 
-        <div class="search-box-wrapper">
-            <i class="fa-solid fa-microchip search-icon"></i>
-            <input type="text" class="ai-search-bar" id="searchBar" onkeyup="renderDashboard()" placeholder="Ask AI Matrix or scan system alerts...">
-        </div>
-
-        <div class="matrix-grid" style="margin-top: 30px;" id="matrixGrid">
-            </div>
-
+        <!-- DYNAMIC DATA PORTAL (GRID) -->
+        <div class="matrix-grid" id="matrixGrid"></div>
     </div>
 
     <script>
-        // GLOBAL APPLICATION SYSTEM STATE
         let currentLanguage = 'en';
         let currentCategory = 'investor';
 
-        // MASTER CENTRAL INTELLIGENCE ARRAY (Protects from search bugs)
+        // 🧠 MASSIVE DATA MATRIX (FIXES THE "EMPTY" FEELING)
         const database = [
+            // INVESTOR CARDS
             {
-                id: "investor",
-                icon: "fa-solid fa-coins",
-                keywords: "gold finance war market invest money inflation bonds stocks wealth",
-                title: { en: "Wealth Strategy Radar", hi: "Wealth Strategy Radar", ar: "رادار استراتيجية الثروة" },
+                id: "investor", icon: "fa-solid fa-coins", keywords: "gold finance war market invest money inflation wealth crisis",
+                title: { en: "Gold Strategy Radar", hi: "Gold Strategy Radar", ar: "رادار استراتيجية الذهب" },
                 text: {
-                    en: "High Inflation alert detected! Market matrices suggest shifting 15% of active capital into safe-haven asset clusters like Sovereign Gold Bonds to absorb sudden systemic currency devaluations.",
-                    hi: "High Inflation alert! Itihasik data ke mutabik currency ki value girne se bachne ke liye apne capital ka 15% Sovereign Gold Bonds jaise safe assets me laga dena chahiye.",
-                    ar: "تم اكتشاف تنبيه تضخم مرتفع! تشير مصفوفات السوق إلى تحويل 15٪ من رأس المال النشط إلى مجموعات أصول الملاذ الآمن مثل سندات الذهب السيادية لامتصاص انخفاض قيمة العملة المفاجئ."
+                    en: "High Inflation alert! Pivot 15% of active capital into safe-haven assets like Sovereign Gold Bonds.",
+                    hi: "High Inflation alert! Currency girne se bachne ke liye apne capital ka 15% Sovereign Gold Bonds me invest karein.",
+                    ar: "تنبيه تضخم مرتفع! تحويل 15٪ من رأس المال إلى أصول آمنة مثل سندات الذهب."
                 }
             },
             {
-                id: "student",
-                icon: "fa-solid fa-laptop-code",
-                keywords: "job skill war learning career tech artificial intelligence automation dynamic future",
-                title: { en: "Career & Skill Shield", hi: "Career aur Skill Shield", ar: "درع المهنة والمهارات" },
+                id: "investor", icon: "fa-brands fa-bitcoin", keywords: "crypto bitcoin ethereum market digital finance crisis",
+                title: { en: "Crypto Volatility Matrix", hi: "Crypto Volatility Matrix", ar: "مصفوفة تقلبات التشفير" },
                 text: {
-                    en: "Macroeconomic volatility approaching. Technological frameworks show AI and automation vectors remain 84% immune to geopolitical crisis. Focus deepupskilling parameters on neuro-networks.",
-                    hi: "Market me badi uthal-puthal aane wali hai. AI aur automation sectors crises me bhi stable rehte hain. Recommendation: Apne career ko secure karne ke liye modern AI tools par apni grip banayein.",
-                    ar: "تقلبات الاقتصاد الكلي تقترب. تظهر الأطر التكنولوجية أن ناقلات الذكاء الاصطناعي والأتمتة تظل حصينة بنسبة 84٪ ضد الأزمات الجيوسياسية. ركز معايير مهاراتك على الشبكات العصبية."
+                    en: "Bitcoin showing high correlation with tech equities. Avoid high-leverage trades during current geopolitical stress periods.",
+                    hi: "Geopolitical tension ke chalte Bitcoin me uthal-puthal hai. Is waqt high-leverage trading (udhaar lekar trade) se bachein.",
+                    ar: "يظهر البيتكوين ارتباطًا كبيرًا. تجنب الصفقات عالية الرافعة المالية."
                 }
             },
             {
-                id: "family",
-                icon: "fa-solid fa-cart-shopping",
-                keywords: "food grocery petrol expense home oil fuel budget management basic storage",
-                title: { en: "Household Supply Radar", hi: "Ghar Ke Kharchon Ka Radar", ar: "رادار الإمدادات المنزلية" },
+                id: "investor", icon: "fa-solid fa-money-bill-trend-up", keywords: "stocks bonds equity mutual funds share market crisis",
+                title: { en: "Equity Market Alert", hi: "Share Market Alert", ar: "تنبيه سوق الأسهم" },
                 text: {
-                    en: "Global logistical corridor blockades confirmed. Predictive analytics forecast a 12% escalation in domestic fuel and core grain indexes. Pre-optimize backup pantry modules for a 45-day runway.",
-                    hi: "International logistics and supply chain routes block hone ke sanket hain. Agle kuch dino me petrol aur rashan ke daam badh sakte hain. Ghar ka budget aur stock pehle se balanced rakhein.",
-                    ar: "تم تأكيد حصار الممرات اللوجستية العالمية. تتوقع التحليلات التنبؤية ارتفاعًا بنسبة 12٪ في مؤشرات الوقود المحلي والحبوب الأساسية. قم بتحسين مخزون المؤونة مسبقًا لمدة 45 يومًا."
+                    en: "Defense and energy sector stocks are projecting a 9% upward trajectory. Consider rebalancing portfolio exposure.",
+                    hi: "Defense aur Energy sector ke shares me 9% tak ki tezi aane ki umeed hai. Apne portfolio ko rebalance karne ka sochein.",
+                    ar: "تتوقع أسهم قطاع الدفاع والطاقة مسارًا تصاعديًا بنسبة 9٪."
+                }
+            },
+            
+            // BUSINESS CARDS
+            {
+                id: "business", icon: "fa-solid fa-truck-fast", keywords: "business startup trade supply chain export import market",
+                title: { en: "Supply Chain Survival", hi: "Supply Chain Survival", ar: "بقاء سلسلة التوريد" },
+                text: {
+                    en: "Logistics disruptions detected. Protect working capital by securing long-term raw material contracts immediately.",
+                    hi: "Logistics me rukawat aane ke sanket hain. Raw materials ke liye aaj hi long-term contracts secure kar lein.",
+                    ar: "تم اكتشاف اضطرابات لوجستية. حماية رأس المال العامل عن طريق تأمين عقود المواد."
+                }
+            },
+            {
+                id: "business", icon: "fa-solid fa-file-invoice-dollar", keywords: "tax economy startup funding cashflow business crisis",
+                title: { en: "Cashflow Shield", hi: "Cashflow Shield", ar: "درع التدفق النقدي" },
+                text: {
+                    en: "Credit markets are tightening. Businesses should maintain a minimum of 6 months operational cash reserves.",
+                    hi: "Market me loan milna mushkil ho raha hai. Kam se kam 6 mahine ka operational cash reserve apne paas zaroor rakhein.",
+                    ar: "أسواق الائتمان تتقلص. يجب على الشركات الحفاظ على احتياطيات نقدية."
+                }
+            },
+
+            // STUDENT CARDS
+            {
+                id: "student", icon: "fa-solid fa-laptop-code", keywords: "job skill learning career tech artificial intelligence automation",
+                title: { en: "AI Skill Shield", hi: "AI Skill Shield", ar: "درع مهارات الذكاء الاصطناعي" },
+                text: {
+                    en: "AI and automation vectors remain 84% immune to geopolitical crisis. Focus upskilling parameters on AI integrations.",
+                    hi: "AI aur automation sectors crises me stable rehte hain. Future jobs secure karne ke liye AI tools aur integration sikhein.",
+                    ar: "تظل قطاعات الذكاء الاصطناعي محصنة بنسبة 84٪. ركز على أدوات الذكاء الاصطناعي."
+                }
+            },
+            {
+                id: "student", icon: "fa-solid fa-globe", keywords: "remote work gig economy freelance job tech student crisis",
+                title: { en: "Remote Economy Radar", hi: "Remote Economy Radar", ar: "رادار الاقتصاد عن بعد" },
+                text: {
+                    en: "Remote freelance gigs in web security and data analysis are surging. Build global portfolios to bypass local recessions.",
+                    hi: "Web security aur data analysis me remote freelance jobs badh rahi hain. Local recession se bachne ke liye global clients banayein.",
+                    ar: "تتزايد وظائف العمل المستقل عن بعد. بناء محافظ عالمية لتجاوز الركود."
+                }
+            },
+
+            // FAMILY CARDS
+            {
+                id: "family", icon: "fa-solid fa-wheat-awn", keywords: "food grocery home budget basic storage crisis grain",
+                title: { en: "Pantry Reserve Matrix", hi: "Ghar Ke Rashan Ka Radar", ar: "مصفوفة احتياطي المؤونة" },
+                text: {
+                    en: "Predictive analytics forecast a 12% escalation in core grain indexes. Pre-optimize backup pantry for a 45-day runway.",
+                    hi: "Agle kuch dino me anaj aur rashan ke daam 12% tak badh sakte hain. Kam se kam 45 dino ka rashan pehle se reserve rakhein.",
+                    ar: "تتوقع التحليلات التنبؤية ارتفاعًا في الحبوب. قم بتحسين مخزون المؤونة."
+                }
+            },
+            {
+                id: "family", icon: "fa-solid fa-gas-pump", keywords: "petrol expense oil fuel energy budget management crisis",
+                title: { en: "Energy Cost Alert", hi: "Petrol/Energy Alert", ar: "تنبيه تكلفة الطاقة" },
+                text: {
+                    en: "Global logistical blockades will impact domestic fuel and electricity pricing. Optimize household energy consumption.",
+                    hi: "International routes block hone se petrol aur bijli mehngi ho sakti hai. Apne ghar ke energy aur fuel kharch ko control karein.",
+                    ar: "ستؤثر الحصارات اللوجستية على أسعار الوقود. تحسين استهلاك الطاقة."
                 }
             }
         ];
 
         // 🛡️ ANTI-HACK SOURCE PROTECTION
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false;
-        };
+        document.onkeydown = function(e) { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
 
-        // UI TICKER ANIMATION PARAMETERS
+        // UI TICKER ANIMATION
         const tickersData = [
             { label: "GOLD (XAU/USD)", val: 2345.50, var: 2.0, sym: "$" },
             { label: "BRENT CRUDE", val: 82.30, var: 0.5, sym: "$" },
             { label: "USD/INR", val: 83.15, var: 0.05, sym: "₹" },
-            { label: "BITCOIN (BTC)", val: 68400.00, var: 50.0, sym: "$" }
+            { label: "BITCOIN (BTC)", val: 68400.00, var: 50.0, sym: "$" },
+            { label: "NASDAQ 100", val: 18200.25, var: 15.0, sym: "" }
         ];
 
         function initTicker() {
@@ -183,7 +246,7 @@
             tickersData.forEach((t, i) => {
                 content += `<div class="ticker-node"><span style="color:var(--gold);">${t.label}</span> ${t.sym}<span id="tick-${i}">${t.val.toFixed(2)}</span> <i id="tick-icon-${i}" class="fa-solid fa-caret-up up"></i></div>`;
             });
-            track.innerHTML = content + content; // Duplicate for endless loop
+            track.innerHTML = content + content + content;
         }
 
         function cycleTickers() {
@@ -192,20 +255,17 @@
                 if (!el) return;
                 let current = parseFloat(el.innerText);
                 let shift = (Math.random() * t.var) - (t.var / 2);
-                let finalVal = current + shift;
-                el.innerText = finalVal.toFixed(2);
-                
+                el.innerText = (current + shift).toFixed(2);
                 let icons = [document.getElementById(`tick-icon-${i}`), document.getElementById(`tick-icon-${i}`) ];
-                let directClass = shift > 0 ? "fa-solid fa-caret-up up" : "fa-solid fa-caret-down down";
-                if(icons[0]) icons[0].className = directClass;
+                if(icons[0]) icons[0].className = shift > 0 ? "fa-solid fa-caret-up up" : "fa-solid fa-caret-down down";
             });
         }
 
-        // SYSTEM CORE CONTROL LOGIC
         function setCategory(cat) {
             currentCategory = cat;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`tab-${cat}`).classList.add('active');
+            document.getElementById('searchBar').value = '';
             renderDashboard();
         }
 
@@ -214,39 +274,42 @@
             if(lang === 'ar') document.body.classList.add('rtl');
             else document.body.classList.remove('rtl');
             
-            // Sync placeholder system strings
-            const placeholders = { en: "Search asset, skill or crisis data...", hi: "Kisi crisis, asset ya skill ko search karein...", ar: "ابحث عن الأصول أو المهارات أو بيانات الأزمات..." };
+            const placeholders = { en: "Search 'gold', 'business', or 'crisis'...", hi: "AI se poochein: 'business', 'job' ya 'rashan'...", ar: "ابحث عن الأصول أو الأعمال..." };
             document.getElementById('searchBar').placeholder = placeholders[lang];
             renderDashboard();
         }
 
-        // ENGINE RENDER BLOCK (Fixes the search bar logic seamlessly)
+        // 🧠 UPGRADED SMART SEARCH ENGINE
         function renderDashboard() {
             const grid = document.getElementById('matrixGrid');
-            let searchInput = document.getElementById('searchBar').value.toLowerCase().replace(/[^a-z0-9 ]/g, "");
+            let rawInput = document.getElementById('searchBar').value.toLowerCase().replace(/[^a-z0-9 ]/g, "");
+            let searchWords = rawInput.split(" ").filter(w => w.trim() !== ""); 
             let htmlPayload = '';
 
-            // Filter Engine Logic
             let filtered = database.filter(item => {
-                // If there's a search term, look across keywords everywhere. Otherwise, show by selected profile tab.
-                if (searchInput !== "") {
-                    return item.keywords.includes(searchInput);
+                if (searchWords.length > 0) {
+                    return searchWords.some(word => item.keywords.includes(word));
                 } else {
                     return item.id === currentCategory;
                 }
             });
 
             if (filtered.length === 0) {
-                htmlPayload = `<div class="empty-state">// NO CRYPTO SHIELD INTEL MATCHES YOUR COMMAND SEARCH KEYWORD</div>`;
+                htmlPayload = `<div class="empty-state">
+                    <i class="fa-solid fa-radar" style="font-size: 2rem; margin-bottom: 15px; color: var(--text-muted);"></i><br>
+                    // NO CRISIS INTEL MATCHES YOUR COMMAND SEARCH
+                </div>`;
             } else {
                 filtered.forEach(item => {
                     htmlPayload += `
                         <div class="intel-card">
-                            <div class="card-header">
-                                <div class="card-icon"><i class="${item.icon}"></i></div>
-                                <h2>${item.title[currentLanguage]}</h2>
+                            <div>
+                                <div class="card-header">
+                                    <div class="card-icon"><i class="${item.icon}"></i></div>
+                                    <h2>${item.title[currentLanguage]}</h2>
+                                </div>
+                                <p>${item.text[currentLanguage]}</p>
                             </div>
-                            <p>${item.text[currentLanguage]}</p>
                         </div>
                     `;
                 });
@@ -256,8 +319,8 @@
 
         window.onload = function() {
             initTicker();
-            setInterval(cycleTickers, 3000);
-            setLanguage('en'); // Boot with clean default
+            setInterval(cycleTickers, 2500);
+            setLanguage('en');
         };
     </script>
 </body>
