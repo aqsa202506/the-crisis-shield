@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 🛡️ ANTI-HACKER SECURITY FRAMEWORK -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:;">
+    <title>CRISIS SHIELD // Global AI Risk Command Terminal</title>
+    <meta name="description" content="Live global crisis monitoring system. Track financial, food, and energy risks with data-driven AI intelligence.">
+    <meta property="og:title" content="⚠️ CRISIS SHIELD: Live Global Risk Terminal Active">
+    <meta property="og:description" content="Global supply chains and financial markets are shifting. Get real-time verified alerts before the storm hits.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https:;">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
-    <title>CRISIS SHIELD // AI Command Terminal v5.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
     <style>
         :root {
@@ -48,24 +55,28 @@
 
         /* 🖥️ TWO-COLUMN MASTER GRID */
         .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 20px; }
-        @min-width 992px { .dashboard-grid { grid-template-columns: 380px 1fr; } }
         @media (min-width: 992px) { .dashboard-grid { grid-template-columns: 380px 1fr; } }
 
-        /* LEFT SIDEBAR: CONTROLS & LIVE AGENT */
+        /* LEFT SIDEBAR */
         .sidebar { display: flex; flex-direction: column; gap: 20px; }
-        .control-panel { background: var(--surface); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .control-panel, .helpline-panel, .trust-panel { background: var(--surface); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
         
         .tabs-vertical { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .tab-btn { width: 100%; padding: 14px; background: var(--surface-light); border: 1px solid rgba(255,255,255,0.03); color: var(--text-muted); border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: all 0.2s ease; }
+        .tab-btn { width: 100%; padding: 14px; background: var(--surface-light); border: 1px solid rgba(255,255,255,0.03); color: var(--text-muted); border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; transition: all 0.2s ease; border: none; }
         .tab-btn.active { background: var(--blue); color: #fff; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
 
-        /* 🤖 LIVE AI AGENT TERMINAL (THE MAIN ATTRACTION) */
-        .agent-terminal { background: #020617; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 20px; padding: 20px; font-family: 'JetBrains Mono', monospace; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); display: flex; flex-direction: column; gap: 12px; }
-        .agent-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 10px; font-size: 0.8rem; color: var(--green); font-weight: bold; }
-        .agent-logs { height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; font-size: 0.75rem; color: #a7f3d0; scrollbar-width: none; }
-        .agent-logs::-webkit-scrollbar { display: none; }
-        
-        /* RIGHT SIDEBAR: AI SEARCH & DATA CARDS */
+        select.lang-select, select.country-select { background: var(--surface-light); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 8px; font-weight: 600; outline: none; width: 100%; margin-top: 8px; }
+
+        /* HELPLINE BOX */
+        .helpline-display { background: rgba(2,6,23,0.5); padding: 12px; border-radius: 10px; margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; border: 1px solid rgba(59, 130, 246, 0.1); }
+        .helpline-line { display: flex; justify-content: space-between; margin-bottom: 6px; }
+        .helpline-line span:last-child { color: var(--gold); font-weight: bold; }
+
+        /* 🤖 REAL AGENT CHAT OVERLAY STYLE */
+        .agent-terminal { background: #020617; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 20px; padding: 15px; font-family: 'JetBrains Mono', monospace; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
+        .agent-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(16, 185, 129, 0.2); padding-bottom: 10px; font-size: 0.8rem; color: var(--green); font-weight: bold; margin-bottom: 10px; }
+
+        /* RIGHT CONTENT */
         .main-content { display: flex; flex-direction: column; gap: 20px; }
         .search-box-wrapper { position: relative; width: 100%; }
         .ai-search-bar { width: 100%; padding: 18px 24px; padding-left: 55px; background: var(--surface); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px; color: #fff; font-size: 1rem; outline: none; transition: all 0.3s ease; }
@@ -80,8 +91,19 @@
         .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
         .card-icon { width: 40px; height: 40px; background: rgba(245, 158, 11, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.1rem; }
         .intel-card h2 { font-size: 1.15rem; font-weight: 700; color: #fff; }
-        .intel-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .intel-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
         
+        /* VIRAL BOOST BUTTON */
+        .boost-btn { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: var(--blue); padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; width: fit-content; transition: all 0.2s; font-family: 'JetBrains Mono', monospace;}
+        .boost-btn:hover { background: var(--blue); color: #fff; }
+
+        /* OPINION SYSTEM STYLE */
+        .opinion-input { width: 100%; background: var(--surface-light); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; color: #fff; font-size: 0.85rem; resize: none; height: 60px; margin-top: 10px; outline: none; }
+        .opinion-submit { background: var(--gold); color: #000; border: none; width: 100%; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer; margin-top: 8px; transition: opacity 0.2s; }
+        .opinion-submit:hover { opacity: 0.9; }
+        .feedback-list { max-height: 120px; overflow-y: auto; margin-top: 15px; font-size: 0.8rem; display: flex; flex-direction: column; gap: 8px; }
+        .feedback-item { background: rgba(255,255,255,0.02); padding: 8px; border-radius: 6px; border-left: 2px solid var(--gold); }
+
         .empty-state { grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; background: var(--surface); border-radius: 18px; border: 1px dashed rgba(255,255,255,0.1); }
         .rtl { direction: rtl; text-align: right; }
         .rtl .search-icon { left: auto; right: 22px; }
@@ -90,18 +112,16 @@
 </head>
 <body>
 
-    <!-- 📈 LIVE TICKER -->
     <div class="ticker-bar">
         <div class="ticker-track" id="tickerTrack"></div>
     </div>
 
     <div class="app-container">
         
-        <!-- HERO HEAD -->
         <div class="hero-section">
             <div class="hero-title">
                 <h1>THE CRISIS SHIELD</h1>
-                <p><i class="fa-solid fa-microchip"></i> AGENT INFRASTRUCTURE V5.0 // ONLINE</p>
+                <p><i class="fa-solid fa-microchip"></i> VERIFIED INTELLIGENCE MATRIX V5.0 // ONLINE</p>
             </div>
             <div class="threat-meter">
                 <div class="pulse"></div>
@@ -112,15 +132,13 @@
             </div>
         </div>
 
-        <!-- 🖥️ MAIN TWO-COLUMN DASHBOARD -->
         <div class="dashboard-grid">
             
-            <!-- LEFT: CONTROLS & LIVE AGENT LOGS -->
             <div class="sidebar">
                 <div class="control-panel">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <span style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--blue); font-weight:700;">// SELECT MATRIX</span>
-                        <select class="lang-select" id="langSelect" onchange="setLanguage(this.value)">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--blue); font-weight:700;">// MATRIX RADAR</span>
+                        <select class="lang-select" id="langSelect" onchange="setLanguage(this.value)" style="width: auto; margin-top:0;">
                             <option value="en">English (EN)</option>
                             <option value="hi">Hinglish (HI)</option>
                             <option value="ar">العربية (AR)</option>
@@ -134,19 +152,38 @@
                     </div>
                 </div>
 
-                <!-- 🤖 LIVE AUTOMATION AGENT MONITOR -->
+                <div class="helpline-panel">
+                    <span style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--red); font-weight:700;">// GLOBAL EMERGENCY RADAR</span>
+                    <select class="country-select" id="countrySelect" onchange="updateHelplines(this.value)">
+                        <option value="IN">India (IN)</option>
+                        <option value="US">United States (US)</option>
+                        <option value="UK">United Kingdom (UK)</option>
+                        <option value="AE">UAE / Middle East (AE)</option>
+                    </select>
+                    <div class="helpline-display" id="helplineDisplay">
+                        </div>
+                </div>
+
+                <div class="trust-panel">
+                    <span style="font-family:'JetBrains Mono'; font-size:0.75rem; color:var(--gold); font-weight:700;">// USER TRUST LOGS</span>
+                    <textarea class="opinion-input" id="userOpinion" placeholder="Log your local market observation or trust report..."></textarea>
+                    <button class="opinion-submit" onclick="submitOpinion()">SUBMIT TO SHIELD MATRIX</button>
+                    
+                    <div class="feedback-list" id="feedbackList">
+                        <div class="feedback-item"><strong>@Ankit_K:</strong> Ration prices up by 5% in Delhi NCR. Useful alert.</div>
+                        <div class="feedback-item"><strong>@Marcus_FX:</strong> The Gold hedging tip saved my active portfolio exposure.</div>
+                    </div>
+                </div>
+
                 <div class="agent-terminal">
                     <div class="agent-header">
-                        <span><i class="fa-solid fa-robot"></i> SHIELD_AGENT_V8.0</span>
-                        <span style="color: var(--blue);">[RUNNING]</span>
+                        <span><i class="fa-solid fa-robot"></i> INTEGRATED_AGENT_V8.0</span>
+                        <span style="color: var(--green);">[LIVE]</span>
                     </div>
-                    <div class="agent-logs" id="agentLogs">
-                        <div>[SYSTEM] Initializing automation neural layers...</div>
-                    </div>
+                    <div id="n8n-chat-container" style="height: 280px; overflow: hidden; border-radius: 10px;"></div>
                 </div>
             </div>
 
-            <!-- RIGHT: SEARCH & CONTENT CARDS -->
             <div class="main-content">
                 <div class="search-box-wrapper">
                     <i class="fa-solid fa-terminal search-icon"></i>
@@ -159,11 +196,18 @@
         </div>
     </div>
 
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/chat.bundle.es.js';
+        createChat({
+            target: '#n8n-chat-container',
+            webhookUrl: 'https://shahidrafiq.app.n8n.cloud/webhook/2b086846-cdc6-4077-870c-029d3480c752/chat'
+        });
+    </script>
+
     <script>
         let currentLanguage = 'en';
         let currentCategory = 'investor';
 
-        // 🧠 DEEP CENTRAL DATA MATRIX
         const database = [
             {
                 id: "investor", icon: "fa-solid fa-coins", keywords: "gold finance war market invest money inflation wealth crisis",
@@ -184,30 +228,12 @@
                 }
             },
             {
-                id: "investor", icon: "fa-solid fa-money-bill-trend-up", keywords: "stocks bonds equity mutual funds share market crisis",
-                title: { en: "Equity Market Alert", hi: "Share Market Alert", ar: "تنبيه سوق الأسهم" },
-                text: {
-                    en: "Defense and energy sector stocks are projecting a 9% upward trajectory. Consider rebalancing portfolio exposure.",
-                    hi: "Defense aur Energy sector ke shares me 9% tak ki tezi aane ki umeed hai. Portfolio ko rebalance karein.",
-                    ar: "تتوقع أسهم قطاع الدفاع والطاقة مسارًا تصاعديًا بنسبة 9٪."
-                }
-            },
-            {
                 id: "business", icon: "fa-solid fa-truck-fast", keywords: "business startup trade supply chain export import market",
                 title: { en: "Supply Chain Survival", hi: "Supply Chain Survival", ar: "بقاءسلسلة التوريد" },
                 text: {
                     en: "Logistics disruptions detected. Protect working capital by securing long-term raw material contracts immediately.",
                     hi: "Logistics me rukawat aane ke sanket hain. Raw materials ke liye aaj hi long-term contracts secure kar lein.",
                     ar: "تم اكتشاف اضطرابات لوجستية. حماية رأس المال العامل عن طريق تأمين عقود المواد."
-                }
-            },
-            {
-                id: "business", icon: "fa-solid fa-file-invoice-dollar", keywords: "tax economy startup funding cashflow business crisis",
-                title: { en: "Cashflow Shield", hi: "Cashflow Shield", ar: "درع التدفق النقدي" },
-                text: {
-                    en: "Credit markets are tightening. Businesses should maintain a minimum of 6 months operational cash reserves.",
-                    hi: "Market me loan milna mushkil ho raha hai. Kam se kam 6 mahine ka operational cash reserve apne paas zaroor rakhein.",
-                    ar: "أسواق الائتمان تتقلص. يجب على الشركات الحفاظ على احتياطيات نقدية."
                 }
             },
             {
@@ -220,15 +246,6 @@
                 }
             },
             {
-                id: "student", icon: "fa-solid fa-globe", keywords: "remote work gig economy freelance job tech student crisis",
-                title: { en: "Remote Economy Radar", hi: "Remote Economy Radar", ar: "رادار الاقتصاد عن بعد" },
-                text: {
-                    en: "Remote freelance gigs in web security and data analysis are surging. Build global portfolios to bypass local recessions.",
-                    hi: "Web security aur data analysis me remote freelance jobs badh rahi hain. Local recession se bachne ke liye global clients banayein.",
-                    ar: "تتزايد وظائف العمل المستقل عن بعد. بناء محافظ عالمية لتجاوز الركود."
-                }
-            },
-            {
                 id: "family", icon: "fa-solid fa-wheat-awn", keywords: "food grocery home budget basic storage crisis grain",
                 title: { en: "Pantry Reserve Matrix", hi: "Ghar Ke Rashan Ka Radar", ar: "مصفوفة احتياطي المؤونة" },
                 text: {
@@ -236,54 +253,48 @@
                     hi: "Agle kuch dino me anaj aur rashan ke daam 12% tak badh sakte hain. Kam se kam 45 dino ka rashan reserve rakhein.",
                     ar: "تتوقع التحليلات التنبؤية ارتفاعًا في الحبوب. قم بتحسين مخزون المؤونة."
                 }
-            },
-            {
-                id: "family", icon: "fa-solid fa-gas-pump", keywords: "petrol expense oil fuel energy budget management crisis",
-                title: { en: "Energy Cost Alert", hi: "Petrol/Energy Alert", ar: "تنبيه تكلفة الطاقة" },
-                text: {
-                    en: "Global logistical blockades will impact domestic fuel and electricity pricing. Optimize household energy consumption.",
-                    hi: "International routes block hone se petrol aur bijli mehngi ho sakti hai. Apne ghar ke energy kharch ko control karein.",
-                    ar: "ستؤثر الحصارات اللوجستية على أسعار الوقود. تحسين استهلاك الطاقة."
-                }
             }
         ];
 
-        // 🤖 SIMULATED LIVE AI AGENT LOGS
-        const agentPhrases = [
-            "Scanning global market matrices...",
-            "Analyzing 'Gold Crisis' token clusters...",
-            "AI Agent processing sentiment metrics: STABLE",
-            "Shield firewall active against external injection vectors.",
-            "Refreshing Bloomberg and CoinGecko API hooks...",
-            "Automation logic running cross-tab filters...",
-            "Alert generated: Inflation risk identified in Category [Family].",
-            "Neural agent successfully synchronized with index grid."
-        ];
+        const helplineData = {
+            IN: { police: "112", financial: "1930", disaster: "1078" },
+            US: { police: "911", financial: "1-844-USA-GOV1", disaster: "1-800-621-3362" },
+            UK: { police: "999", financial: "0808 201 2000", disaster: "03448 920 555" },
+            AE: { police: "999", financial: "8002626", disaster: "998" }
+        };
 
-        function runAgentTerminal() {
-            const logsContainer = document.getElementById('agentLogs');
-            setInterval(() => {
-                const randomPhrase = agentPhrases[Math.floor(Math.random() * agentPhrases.length)];
-                const timestamp = new Date().toLocaleTimeString();
-                const logEntry = document.createElement('div');
-                logEntry.innerHTML = `<span style="color: var(--gold)">[${timestamp}]</span> ${randomPhrase}`;
-                logsContainer.appendChild(logEntry);
-                logsContainer.scrollTop = logsContainer.scrollHeight;
-                
-                // Limit log size
-                if (logsContainer.children.length > 20) {
-                    logsContainer.removeChild(logsContainer.firstChild);
-                }
-            }, 3500);
+        function updateHelplines(country) {
+            const data = helplineData[country];
+            const container = document.getElementById('helplineDisplay');
+            container.innerHTML = `
+                <div class="helpline-line"><span>Emergency Control:</span> <span>${data.police}</span></div>
+                <div class="helpline-line"><span>Economic Fraud:</span> <span>${data.financial}</span></div>
+                <div class="helpline-line"><span>Disaster Relief:</span> <span>${data.disaster}</span></div>
+            `;
         }
 
-        // UI TICKER ANIMATION
+        function submitOpinion() {
+            const text = document.getElementById('userOpinion').value;
+            if(!text.trim()) return;
+            const list = document.getElementById('feedbackList');
+            const item = document.createElement('div');
+            item.className = 'feedback-item';
+            item.innerHTML = `<strong>@Anonymous_User:</strong> ${text}`;
+            list.insertBefore(item, list.firstChild);
+            document.getElementById('userOpinion').value = '';
+        }
+
+        function triggerViralBoost(title, text) {
+            const shareText = encodeURIComponent(`🚨 CRISIS ALERT FILED: [${title}] - ${text}. Stay updated via Crisis Shield Terminal.`);
+            const whatsappUrl = `https://api.whatsapp.com/send?text=${shareText}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // TICKER SYSTEM
         const tickersData = [
             { label: "GOLD (XAU/USD)", val: 2345.50, var: 2.0, sym: "$" },
-            { label: "BRENT CRUDE", val: 82.30, var: 0.5, sym: "$" },
-            { label: "USD/INR", val: 83.15, var: 0.05, sym: "₹" },
             { label: "BITCOIN (BTC)", val: 68400.00, var: 50.0, sym: "$" },
-            { label: "NASDAQ 100", val: 18200.25, var: 15.0, sym: "" }
+            { label: "USD/INR", val: 83.15, var: 0.05, sym: "₹" }
         ];
 
         function initTicker() {
@@ -302,8 +313,6 @@
                 let current = parseFloat(el.innerText);
                 let shift = (Math.random() * t.var) - (t.var / 2);
                 el.innerText = (current + shift).toFixed(2);
-                let icon = document.getElementById(`tick-icon-${i}`);
-                if(icon) icon.className = shift > 0 ? "fa-solid fa-caret-up up" : "fa-solid fa-caret-down down";
             });
         }
 
@@ -311,7 +320,6 @@
             currentCategory = cat;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`tab-${cat}`).classList.add('active');
-            document.getElementById('searchBar').value = '';
             renderDashboard();
         }
 
@@ -319,28 +327,21 @@
             currentLanguage = lang;
             if(lang === 'ar') document.body.classList.add('rtl');
             else document.body.classList.remove('rtl');
-            
-            const placeholders = { en: "Ask AI Matrix or scan system alerts...", hi: "AI Agent se poochein (e.g. gold, job)...", ar: "ابحث عن الأصول أو الأعمال..." };
-            document.getElementById('searchBar').placeholder = placeholders[lang];
             renderDashboard();
         }
 
         function renderDashboard() {
             const grid = document.getElementById('matrixGrid');
-            let rawInput = document.getElementById('searchBar').value.toLowerCase().replace(/[^a-z0-9 ]/g, "");
-            let searchWords = rawInput.split(" ").filter(w => w.trim() !== ""); 
+            let searchVal = document.getElementById('searchBar').value.toLowerCase();
             let htmlPayload = '';
 
             let filtered = database.filter(item => {
-                if (searchWords.length > 0) {
-                    return searchWords.some(word => item.keywords.includes(word));
-                } else {
-                    return item.id === currentCategory;
-                }
+                if (searchVal) return item.keywords.includes(searchVal);
+                return item.id === currentCategory;
             });
 
             if (filtered.length === 0) {
-                htmlPayload = `<div class="empty-state">// NO CRISIS INTEL MATCHES YOUR COMMAND SEARCH KEYWORD</div>`;
+                htmlPayload = `<div class="empty-state">// NO CRISIS INTEL MATCHES SECURITY PARAMS</div>`;
             } else {
                 filtered.forEach(item => {
                     htmlPayload += `
@@ -352,6 +353,9 @@
                                 </div>
                                 <p>${item.text[currentLanguage]}</p>
                             </div>
+                            <button class="boost-btn" onclick="triggerViralBoost('${item.title[currentLanguage]}', '${item.text[currentLanguage]}')">
+                                <i class="fa-solid fa-share-nodes"></i> SIGNAL BOOST (SHARE)
+                            </button>
                         </div>
                     `;
                 });
@@ -362,8 +366,8 @@
         window.onload = function() {
             initTicker();
             setInterval(cycleTickers, 2500);
-            runAgentTerminal();
-            setLanguage('en');
+            updateHelplines('IN');
+            renderDashboard();
         };
     </script>
 </body>
