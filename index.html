@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- SEO & Social Sharing Tags -->
     <title>CRISIS SHIELD // Global AI Risk Command Terminal</title>
     <meta name="description" content="Live global crisis monitoring system. Track financial, food, and energy risks with data-driven AI intelligence.">
     <meta property="og:title" content="⚠️ CRISIS SHIELD: Live Global Risk Terminal Active">
@@ -82,6 +83,16 @@
         .ai-search-bar { width: 100%; padding: 18px 24px; padding-left: 55px; background: var(--surface); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 16px; color: #fff; font-size: 1rem; outline: none; transition: all 0.3s ease; }
         .ai-search-bar:focus { border-color: var(--gold); box-shadow: 0 0 20px rgba(245, 158, 11, 0.15); }
         .search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: var(--blue); font-size: 1.2rem; }
+
+        /* 🔥 NAYA GEOPOLITICAL TRACKER CSS (DARK MODE) 🔥 */
+        .geo-tracker { background: var(--surface); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .geo-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .geo-header h3 { color: var(--red); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 700; letter-spacing: 1px; }
+        .geo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+        .geo-item { background: var(--surface-light); padding: 10px 14px; border-radius: 10px; border-left: 3px solid #555; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; }
+        .geo-item:hover { border-left-color: var(--gold); background: rgba(245, 158, 11, 0.05); }
+        .geo-name { font-size: 0.8rem; font-weight: 700; color: #e2e8f0; }
+        .geo-data { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: bold; background: rgba(0,0,0,0.4); padding: 4px 8px; border-radius: 4px; color: var(--gold); }
 
         /* DATA MATRIX GRID */
         .matrix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
@@ -190,12 +201,33 @@
                     <input type="text" class="ai-search-bar" id="searchBar" onkeyup="renderDashboard()" placeholder="Ask AI Matrix or scan system alerts...">
                 </div>
 
+                <!-- 🔥 NAYA GEOPOLITICAL TRACKER YAHAN ADD KIYA HAI 🔥 -->
+                <div class="geo-tracker">
+                    <div class="geo-header">
+                        <i class="fa-solid fa-satellite-dish" style="color: var(--red);"></i>
+                        <h3>LIVE CRISIS & CONFLICT MONITOR</h3>
+                    </div>
+                    <div class="geo-grid">
+                        <div class="geo-item"><span class="geo-name">Energy Crisis</span> <span class="geo-data" id="data-energy">SCANNING...</span></div>
+                        <div class="geo-item"><span class="geo-name">Financial Risk</span> <span class="geo-data" id="data-financial">SCANNING...</span></div>
+                        <div class="geo-item"><span class="geo-name">Food Shortage</span> <span class="geo-data" id="data-food">SCANNING...</span></div>
+                        <div class="geo-item"><span class="geo-name">Russia-Ukraine</span> <span class="geo-data" id="data-rus-ukr" style="color: var(--red);">ACTIVE</span></div>
+                        <div class="geo-item"><span class="geo-name">Iran-Israel</span> <span class="geo-data" id="data-irn-isr" style="color: var(--gold);">TENSE</span></div>
+                        <div class="geo-item"><span class="geo-name">Middle East</span> <span class="geo-data" id="data-mid-east">ESCALATING</span></div>
+                        <div class="geo-item"><span class="geo-name">China-Taiwan</span> <span class="geo-data" id="data-chn-twn" style="color: var(--blue);">MONITORING</span></div>
+                        <div class="geo-item"><span class="geo-name">Strait of Hormuz</span> <span class="geo-data" id="data-hormuz" style="color: var(--red);">HIGH ALERT</span></div>
+                        <div class="geo-item"><span class="geo-name">Red Sea Blockade</span> <span class="geo-data" id="data-red-sea" style="color: var(--red);">CRITICAL</span></div>
+                    </div>
+                </div>
+                <!-- 🔥 TRACKER END 🔥 -->
+
                 <div class="matrix-grid" id="matrixGrid"></div>
             </div>
 
         </div>
     </div>
 
+    <!-- N8N Chat Integration -->
     <script type="module">
         import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/chat.bundle.es.js';
         createChat({
