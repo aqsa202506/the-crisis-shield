@@ -401,7 +401,39 @@
             updateHelplines('IN');
             renderDashboard();
         };
-    </script>
-    sb_publishable_x4VEckt3JtrvFEP7ssHVJA_QpkUgPZd
+    </script><!-- SUPABASE CONNECTION SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const supabaseUrl = 'https://jprdvqatcdysmdirklom.supabase.co';
+    const supabaseKey = 'sb_publishable_x4VEckt3JtrvFEP7ssHVJA_QpkUgPZd';
+    const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function fetchCrisisData() {
+        try {
+            const { data, error } = await _supabase
+                .from('crisis_data')
+                .select('crisis_id, status');
+
+            if (error) throw error;
+
+            if (data) {
+                data.forEach(item => {
+                    const box = document.getElementById(`data-${item.crisis_id}`);
+                    if (box) {
+                        box.innerText = item.status;
+                        if(item.status === 'CRITICAL' || item.status === 'ACTIVE') box.style.color = '#ef4444';
+                        if(item.status === 'TENSE' || item.status === 'ESCALATING') box.style.color = '#f59e0b';
+                        if(item.status === 'MONITORING') box.style.color = '#3b82f6';
+                    }
+                });
+            }
+        } catch (err) {
+            console.error("Crisis Data Error: ", err.message);
+        }
+    }
+
+    setTimeout(fetchCrisisData, 2000);
+    setInterval(fetchCrisisData, 300000);
+</script>
 </body>
 </html>
